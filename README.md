@@ -1,10 +1,3 @@
-# #Readme đẹp hơn của foxeiz fr!
-Model: C# ASP MVC web application
-Packets: Bootstrap 5, Jquerry, Entity framework, có thể thêm
-Tools: Bootstrap Studio ~~crack~~ , Visual Studio, 
-
-# Người tham gia thực hiện
-
 - # #Readme đẹp hơn của foxeiz fr!
 Model: C# ASP MVC web application
 Packets: Bootstrap 5, Jquerry, Entity framework, có thể thêm
