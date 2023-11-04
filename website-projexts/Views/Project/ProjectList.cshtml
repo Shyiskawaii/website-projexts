@@ -9,7 +9,7 @@
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/jquery")
-
+@Scripts.Render("~/Content/fonts")
 <!DOCTYPE html>
 
 <html>
@@ -21,6 +21,90 @@
     <main class="page laniding-page">
 
         <section class="clean-block clean-catalog dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">
+                        Danh Mục Dự Án
+                    </h2>
+                    <form class="search-form">
+                        <div class="input-group"><span class="input-group-text"><i class="fa fa-search"></i></span><input class="form-control" type="text" placeholder="Tìm kiếm"><button class="btn btn-light" type="button">Search </button></div>
+                    </form>
+                </div>
+                <div class="content">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="d-none d-md-block">
+                                <div class="filters">
+                                    <div class="filter-item">
+                                        <h3>Danh mục</h3>
+                                        @{ Html.RenderAction("CategoryPartial", "Category");}
+
+                                    </div>
+                                    <div class="filter-item"></div>
+                                </div>
+                            </div>
+                            <div class="d-md-none">
+                                <a class="btn btn-link d-md-none filter-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="filters" href="#filters" role="button" style="text-decoration: none;">Danh Mục<i class="icon-arrow-down filter-caret"></i></a>
+                                <div class="collapse" id="filters">
+                                    <div class="filters">
+                                        <div class="filter-item">
+                                            @{ Html.RenderAction("CategoryPartial", "Category");}
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="products">
+                                <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+                                    @foreach (var item in Model)
+                                    {
+                                        <div class="col col-12 col-md-6 col-lg-4">
+                                            <div class="card">
+                                                <img class="card-img-top w-100 d-block" style="height: 200px; object-fit: cover;"
+                                                     src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
+                                                <div class="card-body p-4">
+                                                    <p class="text-primary card-text mb-0">
+                                                        @Html.DisplayFor(modelItem => item.Category.Name)
+                                                    </p><a class="stretched-link" href="#">
+                                                        <h4>
+                                                            <strong>
+                                                                @Html.DisplayFor(modelItem => item.ProjectName)
+                                                            </strong>
+                                                        </h4>
+                                                    </a>
+                                                    <div class="card-text text-truncate-container">
+                                                        <p>
+                                                            @Html.DisplayFor(modelItem => item.ShortDescription)
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="float-start">
+                                                            <p class="fw-bold" style="margin-bottom: 0;">Đóng Góp</p>
+                                                            <p>
+                                                                @Html.DisplayFor(modelItem => item.Raised)đ
+                                                            </p>
+                                                        </div>
+                                                        <div class="float-end">
+                                                            <p class="fw-bold text-end" style="margin-bottom: 0;">Mục Tiêu</p>
+                                                            <p>
+                                                                @Html.DisplayFor(modelItem => item.Goal)đ
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @*<section class="clean-block clean-catalog dark">
             <div class="row">
                 @foreach (var item in Model)
                 {
@@ -62,13 +146,13 @@
                         </div>
                     </div>
                 }
-            </div>
-            ﻿
+            </div>*@
+        ﻿
 
-            Trang @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-            <div class="MenuPage">
-                @Html.PagedListPager(Model, page => Url.Action("Index", new { page=page}))
-            </div>
+        Trang @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+        <div class="MenuPage">
+            @Html.PagedListPager(Model, page => Url.Action("ProjectList","Project", new { page = page }))
+        </div>
         </section>
     </main>
 

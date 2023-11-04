@@ -23,21 +23,21 @@ namespace website_projexts.Controllers
         //{
         //    return View(_db.Projects.ToList());
         //}
-        public ActionResult ProjectList(Category category, int? page)
-        {
-            int pageSize = 12;
-            int pageNum = (page ?? 1);
-            if (category == null)
+            public ActionResult ProjectList(int? selectedCategoryId, int? page)
             {
-                var projectList = _db.Projects.OrderByDescending(x => x.ProjectName);
-                return View(projectList.ToPagedList(pageNum, pageSize));
+                int pageSize = 12;
+                int pageNum = (page ?? 1);
+                if (selectedCategoryId == null)
+                {
+                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName);
+                    return View(projectList.ToPagedList(pageNum, pageSize));
+                }
+                else
+                {
+                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.Category.CategoryID == selectedCategoryId);
+                    return View(projectList.ToPagedList(pageNum, pageSize));
+                }
             }
-            else
-            {
-                var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.Category == category);
-                return View(projectList);
-            }
-        }
         public ActionResult ProjectCreate()
         {
             var categories = _db.Category.ToList();

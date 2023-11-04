@@ -82,7 +82,6 @@ namespace website_projexts.Controllers
         }
 
 
-
         public static string GetMD5(string str)
         {
             MD5 md5 = new MD5CryptoServiceProvider();

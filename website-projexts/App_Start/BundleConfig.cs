@@ -27,6 +27,9 @@ namespace website_projexts
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css",
                       "~/Content/bootstrap.min.css"));
+            bundles.Add(new StyleBundle("~/Content/fonts").Include(
+                     "~/Content/fonts/fontawesome-all.min.css"
+                     ));
         }
     }
 }
