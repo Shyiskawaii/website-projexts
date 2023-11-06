@@ -9,8 +9,11 @@ namespace website_projexts.Models
 {
     public class Category
     {
-        [Key]
+        [Key, Column(Order = 1)]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int CategoryID { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         public ICollection<Projects> Projects { get; set; }

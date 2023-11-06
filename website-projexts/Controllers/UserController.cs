@@ -29,6 +29,8 @@ namespace website_projexts.Controllers
                 {
                     user.Password = GetMD5(user.Password);
                     _db.Configuration.ValidateOnSaveEnabled = false;
+
+                    user.UserImage = "~/Content/img/userdefault.jpeg";
                     _db.User.Add(user);
                     _db.SaveChanges();
                     return RedirectToAction("Index");

@@ -137,10 +137,16 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\UpdateController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202311061503498_tuhuy.cs" />
+    <Compile Include="Migrations\202311061503498_tuhuy.designer.cs">
+      <DependentUpon>202311061503498_tuhuy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\Projects.cs" />
@@ -165,26 +171,18 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\fonts\fa-brands-400.svg" />
-    <Content Include="Content\fonts\fa-regular-400.svg" />
-    <Content Include="Content\fonts\fa-solid-900.svg" />
-    <Content Include="Content\fonts\fontawesome-all.min.css" />
-    <Content Include="Content\fonts\ionicons.min.css" />
-    <Content Include="Content\fonts\ionicons.svg" />
-    <Content Include="Content\fonts\simple-line-icons.min.css" />
-    <Content Include="Content\fonts\Simple-Line-Icons.svg" />
     <Content Include="Content\img\header.jpg" />
     <Content Include="Content\img\project1.jpeg" />
     <Content Include="Content\img\project2.jpeg" />
     <Content Include="Content\img\project3.jpg" />
     <Content Include="Content\img\trust.jpeg" />
+    <Content Include="Content\img\userdefault.jpeg" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\procreate.css" />
+    <Content Include="Content\prodetail.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\fonts\ionicons.eot" />
-    <Content Include="Content\fonts\ionicons.ttf" />
-    <Content Include="Content\fonts\ionicons.woff" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -213,22 +211,6 @@
     <Content Include="Content\bootstrap-grid.rtl.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
-    <Content Include="Content\fonts\Simple-Line-Icons.eot" />
-    <Content Include="Content\fonts\Simple-Line-Icons.ttf" />
-    <Content Include="Content\fonts\Simple-Line-Icons.woff" />
-    <Content Include="Content\fonts\Simple-Line-Icons.woff2" />
-    <Content Include="Content\fonts\fa-brands-400.eot" />
-    <Content Include="Content\fonts\fa-brands-400.ttf" />
-    <Content Include="Content\fonts\fa-brands-400.woff" />
-    <Content Include="Content\fonts\fa-brands-400.woff2" />
-    <Content Include="Content\fonts\fa-regular-400.eot" />
-    <Content Include="Content\fonts\fa-regular-400.ttf" />
-    <Content Include="Content\fonts\fa-regular-400.woff" />
-    <Content Include="Content\fonts\fa-regular-400.woff2" />
-    <Content Include="Content\fonts\fa-solid-900.eot" />
-    <Content Include="Content\fonts\fa-solid-900.ttf" />
-    <Content Include="Content\fonts\fa-solid-900.woff" />
-    <Content Include="Content\fonts\fa-solid-900.woff2" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -259,6 +241,8 @@
     <Content Include="Views\Project\ProjectCreate.cshtml" />
     <Content Include="Views\Project\DonationCreate.cshtml" />
     <Content Include="Views\Category\CategoryPartial.cshtml" />
+    <Content Include="Views\Update\UpdatePartial.cshtml" />
+    <Content Include="Views\Project\DonationPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -267,6 +251,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202311061503498_tuhuy.resx">
+      <DependentUpon>202311061503498_tuhuy.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

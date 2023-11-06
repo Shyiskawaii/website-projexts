@@ -13,28 +13,28 @@ namespace website_projexts.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
         
-        [Required(ErrorMessage ="First Name is required")]
-        [StringLength(50, MinimumLength = 3)]
+        [Required(ErrorMessage ="Vui lòng nhập tên của bạn!")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Phải dài từ 2-20 chữ cái!" )]
         public string FirstName { get; set; }
 
-        [Required(ErrorMessage = "Last Name is required")]
-        [StringLength(50, MinimumLength = 3)]
+        [Required(ErrorMessage = "Vui lòng nhập họ của bạn!")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Phải dài từ 2-20 chữ cái!")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "User Name is required")]
-        [StringLength(50, MinimumLength = 3)]
+        [Required(ErrorMessage = "Vui lòng nhập tên tài khoản!")]
+        [StringLength(30, MinimumLength = 3, ErrorMessage = "Phải dài từ 3-30 chữ cái!")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Email is required")]
-        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
+        [Required(ErrorMessage = "Vui lòng nhập email của bạn")]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}",ErrorMessage = "Email không hợp lệ!")]
         public string Email { get; set; }
 
-        [Required]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
+        [Required(ErrorMessage = "Vui lòng nhập mật khẩu của bạn")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$", ErrorMessage ="Mật khẩu không hợp lệ!")]
         public string Password { get; set; }
 
         [NotMapped]
-        [Required]
+        [Required(ErrorMessage = "Vui lòng nhập lại mật khẩu của bạn")]
         [System.ComponentModel.DataAnnotations.Compare("Password")]
         public string ConfirmPassword { get; set; }
         public string FullName()
@@ -42,6 +42,9 @@ namespace website_projexts.Models
             return this.FirstName + " " + this.LastName;
         }
 
+        public string UserImage { get; set; }
+
         public ICollection<Projects> Projects { get; set; }
+        public ICollection<Donation> Donations { get; set; }
     }
 }

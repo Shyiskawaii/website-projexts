@@ -16,4 +16,5 @@ namespace website_projexts.Context
         public DbSet<Update> Update { get; set; }
 
     }
+
 }

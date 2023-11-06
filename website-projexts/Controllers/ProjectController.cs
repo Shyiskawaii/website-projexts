@@ -23,18 +23,23 @@ namespace website_projexts.Controllers
         //{
         //    return View(_db.Projects.ToList());
         //}
-            public ActionResult ProjectList(int? selectedCategoryId, int? page)
+            public ActionResult ProjectList(int? selectedCategoryId, int? page, string search)
             {
                 int pageSize = 12;
                 int pageNum = (page ?? 1);
-                if (selectedCategoryId == null)
+                if (selectedCategoryId != null)
                 {
-                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName);
+                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.Category.CategoryID == selectedCategoryId);
+                    return View(projectList.ToPagedList(pageNum, pageSize));
+                }
+                else if (search != null)
+                {
+                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.ProjectName.Contains(search));
                     return View(projectList.ToPagedList(pageNum, pageSize));
                 }
                 else
                 {
-                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.Category.CategoryID == selectedCategoryId);
+                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName);
                     return View(projectList.ToPagedList(pageNum, pageSize));
                 }
             }
@@ -50,7 +55,6 @@ namespace website_projexts.Controllers
         {
             if (ModelState.IsValid)
             {
-                project.CategoryID = 1;
                 project.UserID = Convert.ToInt32(Session["idUser"]);
                 project.Raised = 0;
                 project.PostedTime = DateTime.Now;
@@ -67,9 +71,12 @@ namespace website_projexts.Controllers
         //     .Where(x => x.Value.Errors.Count > 0)
         //     .Select(x => new { x.Key, x.Value.Errors })
         //     .ToArray();
+
         public ActionResult ProjectDetail(int id)
         {
-            return View(_db.Projects.Where(s => s.ProjectID == id).FirstOrDefault());
+            var project = _db.Projects.Include(p => p.Donations).SingleOrDefault(p => p.ProjectID == id);
+
+            return View(project);
         }
         public ActionResult DonationCreate(int projectID)
         {
@@ -93,6 +100,20 @@ namespace website_projexts.Controllers
                 return RedirectToAction("ProjectList");
             }
             return View();
+        }
+
+        public PartialViewResult DonationPartial(int? projectID)
+        {
+            if (projectID.HasValue)
+            {
+                var donation = _db.Donation.Include(d => d.User).Where(u => u.ProjectID == projectID).ToList();
+                if (donation.Count > 0)
+                {
+                    return PartialView(donation);
+                }
+            }
+
+            return PartialView(null);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿@model website_projexts.Models.Projects
 
+<link href="~/Content/prodetail.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -12,65 +14,141 @@
     <title>ProjectCreate</title>
 </head>
 <body>
-    @using (Html.BeginForm()) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
-            <h4>Projects</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    
-            @*<div class="form-group">
-                @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
-                     @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+    <section class="clean-block clean-form dark align-self-center">
+        <div class="container">
+            <div class="block-heading" style="padding-top: 0px;">
+                <h2 class="text-primary">Tạo Dự Án</h2>
+                <p></p>
+            </div>
+            @using (Html.BeginForm())
+            { 
+                <div style="max-width: 700px;">
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Tên Dự Án</label>
+                        @Html.TextBoxFor(model => model.ProjectName, new { @class = "form-control", @required = "required", @autocomplete = "off", placeholder = "Dự án" })
+                        @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Chọn Danh Mục</label>
+                        @Html.DropDownList("CategoryID", (IEnumerable<SelectListItem>)ViewBag.Categories, "Chọn một danh mục", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                    </div>
+
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+                        <div class="form-group mb-3">
+                            <label class="form-label">Mục Tiêu</label>
+                            @Html.TextBoxFor(model => model.Goal, new { @class = "form-control", @required = "required", @autocomplete = "off", placeholder = "ex: 100000(vnd)" })
+                            @Html.ValidationMessageFor(model => model.Goal, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="color form-group mb-3">
+                            <label class="form-label" style="margin-top: 15px;">Hình ảnh</label>
+                            <section>
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-12">
+                                            <div class="file-upload-wrapper">
+                                                <div class="flex-wrap view file-upload" style="padding-bottom: 7px;padding-right: 4px;">
+                                                    @Html.LabelFor(model => model.ProjectImage, htmlAttributes: new { @class = "control-label" })
+                                                    <input class="form-control file_upload" type="file" name="ProjectImage" id="input-file-now">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label">Tóm Tắt Về Dự Án</label>
+                            @Html.TextAreaFor(model => model.ShortDescription, new { @class = "form-control", @id = "summernote", style = "height: 7rem;", placeholder = "Modifica el JS de WYSIWYG para cambiar el placeholder" })
+                            @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label">Thông Tin về Dự Án</label>
+                            @Html.TextAreaFor(model => model.LongDescription, new { @class = "form-control", @id = "summernote-1", style = "height: 30rem;", placeholder = "Thông tin" })
+                            @Html.ValidationMessageFor(model => model.LongDescription, "", new { @class = "text-danger" })
+                        </div>
+
+                        <hr style="margin-top: 30px;margin-bottom: 10px;">
+                        <div class="form-group mb-3">
+                            <button class="btn btn-primary d-block w-100" id="submitButton" type="submit" value="Create"><i class="fa fa-save"></i>&nbsp;Tạo Mới</button>
+                            <a class="btn btn-danger d-block w-100" role="button" href="@Url.Action("ProjectList")" style="margin-top: 15px;"><i class="fa fa-arrow-left"></i>&nbsp;Hủy Bỏ</a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </section>
+
+        @*@using (Html.BeginForm())
+                    {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>Projects</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })-->
+                        @*<div class="form-group">
+            @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+            @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+            </div>
+            </div>
+
+            <!--<div class="form-group">
+                        @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LongDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.LongDescription, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LongDescription, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Goal, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Goal, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Goal, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
                 </div>
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
             </div>*@
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.LongDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LongDescription, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LongDescription, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.Goal, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Goal, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Goal, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
 </body>
 </html>

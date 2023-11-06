@@ -1,0 +1,32 @@
+﻿@using website_projexts.Models
+@model List<Update>
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jquery")
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+@if (Model != null)
+{
+<div class="card">
+    <div class="header">
+        <h2>Cập Nhật:</h2>
+    </div>
+    @foreach (var update in Model)
+    {
+        <div class="body">
+            @update.UpdateTime
+            <h2>
+                @update.UpdateText
+            </h2>
+            <div class="img-post"><img class="img-fluid d-block" src="https://via.placeholder.com/800x280/87CEFA/000000" alt="First slide"></div>
+            <hr class="hr hr-blurry">
+            <p>
+                @update.UpdateText
+            </p>
+        </div>
+    }
+</div>
+}

@@ -14,30 +14,37 @@ namespace website_projexts.Models
         [Key, Column(Order = 1)]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ProjectID { get; set; }
+
+
         public int UserID { get; set; }
         [ForeignKey("UserID")]
         public virtual User User { get; set; }
-
         public int CategoryID { get; set; }
         [ForeignKey("CategoryID")]
         public virtual Category Category{ get; set; }
+
+
         public ICollection<Donation> Donations { get; set; }
         public ICollection<Update> Updates { get; set; }
 
-        [Required(ErrorMessage = "Project Name is required")]
-        [StringLength(20, MinimumLength = 3)]
+
+
+        [Required(ErrorMessage = "Vui lòng nhập tên dự án!")]
+        [StringLength(30, MinimumLength = 3,ErrorMessage ="Tên dự án không hợp lệ!")]
         public string ProjectName { get; set; }
-        [Required(ErrorMessage = "Short Description is required")]
-        [StringLength(50, MinimumLength = 3)]
+        [Required(ErrorMessage = "Vui lòng nhập tóm tắt dự án!")]
+        [StringLength(50, MinimumLength = 3,ErrorMessage = "Tóm tắt dự án dài từ 3-50 chữ!")]
         public string ShortDescription { get; set; }
-        [Required(ErrorMessage = "Long Description is required")]
-        [StringLength(2000, MinimumLength = 3)]
+        [Required(ErrorMessage = "Vui lòng nhập thông tin dự án!")]
+        [StringLength(2000, MinimumLength = 3,ErrorMessage = "Thông tin dự án dài từ 3-2000 chữ!")]
         public string LongDescription { get; set; } 
-        [Range(100000,100000000,ErrorMessage = "100k - 100m")]
+        [Required(ErrorMessage ="Vui lòng nhập mục tiêu gây quỹ!")]
+        [Range(100000,100000000,ErrorMessage = "Mục tiêu gây quỹ từ 100k-100tr!")]
         public int Goal{ get; set; } 
         public int Raised { get; set; }
-        //public Image ProjectImage { get; set; }
         public DateTime PostedTime { get; set; }
+        [Required(ErrorMessage = "Vui lòng chọn hình ảnh cho dự án!")]
+        public string ProjectImage { get; set; }
 
 
     }

@@ -9,7 +9,7 @@
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/Content/fonts")
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <!DOCTYPE html>
 
 <html>
@@ -26,9 +26,17 @@
                     <h2 class="text-info">
                         Danh Mục Dự Án
                     </h2>
-                    <form class="search-form">
-                        <div class="input-group"><span class="input-group-text"><i class="fa fa-search"></i></span><input class="form-control" type="text" placeholder="Tìm kiếm"><button class="btn btn-light" type="button">Search </button></div>
-                    </form>
+                    @using (Html.BeginForm("ProjectList", "Project", FormMethod.Get))
+                    {
+                        <div class="input-group search-form">
+                            <span class="input-group-text fa fa-search">
+                            </span>
+                            <input class="form-control" type="text" name="search" placeholder="Tìm kiếm">
+                            <button class="btn btn-light" type="submit">
+                                Search
+                            </button>
+                        </div>
+                    }
                 </div>
                 <div class="content">
                     <div class="row">
@@ -38,13 +46,15 @@
                                     <div class="filter-item">
                                         <h3>Danh mục</h3>
                                         @{ Html.RenderAction("CategoryPartial", "Category");}
-
                                     </div>
                                     <div class="filter-item"></div>
                                 </div>
                             </div>
                             <div class="d-md-none">
-                                <a class="btn btn-link d-md-none filter-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="filters" href="#filters" role="button" style="text-decoration: none;">Danh Mục<i class="icon-arrow-down filter-caret"></i></a>
+                                <a class="btn btn-link d-md-none filter-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="filters" href="#filters" role="button" style="text-decoration: none;">
+                                    Danh Mục
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
                                 <div class="collapse" id="filters">
                                     <div class="filters">
                                         <div class="filter-item">
@@ -67,7 +77,8 @@
                                                 <div class="card-body p-4">
                                                     <p class="text-primary card-text mb-0">
                                                         @Html.DisplayFor(modelItem => item.Category.Name)
-                                                    </p><a class="stretched-link" href="#">
+                                                    </p>
+                                                    <a class="stretched-link" href="@Url.Action("ProjectDetail", "Project", new { id = item.ProjectID})">
                                                         <h4>
                                                             <strong>
                                                                 @Html.DisplayFor(modelItem => item.ProjectName)
@@ -104,57 +115,13 @@
                 </div>
             </div>
         </section>
-        @*<section class="clean-block clean-catalog dark">
-            <div class="row">
-                @foreach (var item in Model)
-                {
-                    <div class="col-md-4 card-frame">
-                        <div class="card">
-                            <img class="card-img-top w-100 d-block fit-cover" style="height: 200px;" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png">
-                            <div class="card-body p-4">
-                                <p class="text-primary card-text mb-0">
-                                    @Html.DisplayFor(modelItem => item.Category.Name)
-                                </p>
-                                <h4 class="card-title">
-                                    <strong>
-                                        @Html.DisplayFor(modelItem => item.ProjectName)
-                                    </strong>
-                                </h4>
-                                <div class="card-text text-truncate-container">
-                                    <p>
-                                        @Html.DisplayFor(modelItem => item.ShortDescription)
-                                    </p>
-                                </div>
-                                <div class="progress">
-                                    <div class="progress-bar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
-                                </div>
-                                <div class="d-flex">
-                                    <div class="float-start">
-                                        <p class="fw-bold float-start mb-0">Raised</p>
-                                        <p class="text-muted mb-0">
-                                            @Html.DisplayFor(modelItem => item.Goal)vnd
-                                        </p>
-                                    </div>
-                                    <div class="float-end ms-auto">
-                                        <p class="fw-bold mb-0">Goal</p>
-                                        <p class="text-muted mb-0">
-                                            @Html.DisplayFor(modelItem => item.Raised)vnd
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>*@
-        ﻿
 
         Trang @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
         <div class="MenuPage">
-            @Html.PagedListPager(Model, page => Url.Action("ProjectList","Project", new { page = page }))
+            @Html.PagedListPager(Model, page => Url.Action("ProjectList", "Project", new { page = page }))
         </div>
-        </section>
     </main>
+
 
 
 </body>
