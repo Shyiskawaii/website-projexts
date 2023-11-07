@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class tuhuy : DbMigration
+    public partial class pein : DbMigration
     {
         public override void Up()
         {
@@ -29,7 +29,7 @@
                         Goal = c.Int(nullable: false),
                         Raised = c.Int(nullable: false),
                         PostedTime = c.DateTime(nullable: false),
-                        ProjectImage = c.String(nullable: false),
+                        ProjectImage = c.String(),
                     })
                 .PrimaryKey(t => t.ProjectID)
                 .ForeignKey("dbo.Categories", t => t.CategoryID, cascadeDelete: true)

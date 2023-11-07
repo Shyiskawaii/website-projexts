@@ -46,5 +46,7 @@ namespace website_projexts.Models
 
         public ICollection<Projects> Projects { get; set; }
         public ICollection<Donation> Donations { get; set; }
+
+  
     }
 }

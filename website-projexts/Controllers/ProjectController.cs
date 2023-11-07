@@ -11,6 +11,8 @@ using website_projexts.Context;
 using website_projexts.Models;
 using PagedList;
 using PagedList.Mvc;
+using System.IO;
+using Microsoft.Ajax.Utilities;
 
 namespace website_projexts.Controllers
 {
@@ -47,24 +49,46 @@ namespace website_projexts.Controllers
         {
             var categories = _db.Category.ToList();
             ViewBag.Categories = new SelectList(categories, "CategoryID", "Name");
-
-            return View();
+            var model = new Projects();
+            model.ProjectImage = "~/Content/img/default.jpeg";
+            return View(model);
         }
         [HttpPost]
         public ActionResult ProjectCreate(Projects project)
         {
+
+            project.ProjectImage = "~/Content/img/default.jpeg";
+            var errors = ModelState
+                 .Where(x => x.Value.Errors.Count > 0)
+                 .Select(x => new { x.Key, x.Value.Errors })
+                 .ToArray();
+
             if (ModelState.IsValid)
             {
-                project.UserID = Convert.ToInt32(Session["idUser"]);
-                project.Raised = 0;
-                project.PostedTime = DateTime.Now;
+                try
+                {
+                    if (project.UploadImage != null)
+                    {
+                        string filename = Path.GetFileNameWithoutExtension(project.UploadImage.FileName);
+                        string extent = Path.GetExtension(project.UploadImage.FileName);
+                        filename = filename + extent;
+                        project.ProjectImage = "~/Content/img/" + filename;
+                        project.UploadImage.SaveAs(Path.Combine(Server.MapPath("~/Content/img/"), filename));
+                    }
+                    project.UserID = Convert.ToInt32(Session["idUser"]);
+                    project.Raised = 0;
+                    project.PostedTime = DateTime.Now;
 
-                _db.Projects.Add(project);
-                _db.SaveChanges();
-                return RedirectToAction("ProjectList");
+                    _db.Projects.Add(project);
+                    _db.SaveChanges();
+                    return RedirectToAction("ProjectList");
+                }
+                catch
+                {
+                }
             }
 
-            return View();
+            return RedirectToAction("ProjectCreate");
         }
 
         //var errors = ModelState

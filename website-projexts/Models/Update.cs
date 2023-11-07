@@ -22,5 +22,6 @@ namespace website_projexts.Models
         public DateTime UpdateTime { get; set; }
         public string UpdateImage { get; set; } = null;
 
+       
     }
 }

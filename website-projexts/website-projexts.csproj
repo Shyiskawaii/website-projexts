@@ -142,9 +142,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202311061503498_tuhuy.cs" />
-    <Compile Include="Migrations\202311061503498_tuhuy.designer.cs">
-      <DependentUpon>202311061503498_tuhuy.cs</DependentUpon>
+    <Compile Include="Migrations\202311070403503_pein.cs" />
+    <Compile Include="Migrations\202311070403503_pein.designer.cs">
+      <DependentUpon>202311070403503_pein.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -172,6 +172,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\img\header.jpg" />
+    <Content Include="Content\img\default.jpeg" />
     <Content Include="Content\img\project1.jpeg" />
     <Content Include="Content\img\project2.jpeg" />
     <Content Include="Content\img\project3.jpg" />
@@ -253,8 +254,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202311061503498_tuhuy.resx">
-      <DependentUpon>202311061503498_tuhuy.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202311070403503_pein.resx">
+      <DependentUpon>202311070403503_pein.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

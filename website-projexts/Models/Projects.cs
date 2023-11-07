@@ -43,9 +43,10 @@ namespace website_projexts.Models
         public int Goal{ get; set; } 
         public int Raised { get; set; }
         public DateTime PostedTime { get; set; }
-        [Required(ErrorMessage = "Vui lòng chọn hình ảnh cho dự án!")]
+
         public string ProjectImage { get; set; }
 
-
+        [NotMapped]
+        public HttpPostedFileBase UploadImage { get; set; }
     }
 }

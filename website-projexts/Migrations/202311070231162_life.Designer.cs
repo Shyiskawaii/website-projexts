@@ -7,13 +7,13 @@ namespace website_projexts.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class tuhuy : IMigrationMetadata
+    public sealed partial class life : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(tuhuy));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(life));
         
         string IMigrationMetadata.Id
         {
-            get { return "202311061503498_tuhuy"; }
+            get { return "202311070231162_life"; }
         }
         
         string IMigrationMetadata.Source
