@@ -25,26 +25,41 @@ namespace website_projexts.Controllers
         //{
         //    return View(_db.Projects.ToList());
         //}
-            public ActionResult ProjectList(int? selectedCategoryId, int? page, string search)
+
+        public ActionResult AdminControler(string search)
+        {
+            if (search != null)
             {
-                int pageSize = 12;
-                int pageNum = (page ?? 1);
-                if (selectedCategoryId != null)
-                {
-                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.Category.CategoryID == selectedCategoryId);
-                    return View(projectList.ToPagedList(pageNum, pageSize));
-                }
-                else if (search != null)
-                {
-                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.ProjectName.Contains(search));
-                    return View(projectList.ToPagedList(pageNum, pageSize));
-                }
-                else
-                {
-                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName);
-                    return View(projectList.ToPagedList(pageNum, pageSize));
-                }
+                var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.ProjectName.Contains(search));
+                return View(projectList.ToList());
             }
+            return View(_db.Projects.ToList());
+        }
+
+        public ActionResult ProjectList(int? selectedCategoryId, int? page, string search)
+        {
+            int pageSize = 12;
+            int pageNum = (page ?? 1);
+            if (selectedCategoryId != null)
+            {
+                var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.Category.CategoryID == selectedCategoryId);
+                return View(projectList.ToPagedList(pageNum, pageSize));
+            }
+            else if (search != null)
+            {
+                var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.ProjectName.Contains(search));
+                return View(projectList.ToPagedList(pageNum, pageSize));
+            }
+            else
+            {
+                var projectList = _db.Projects.OrderByDescending(x => x.ProjectName);
+                return View(projectList.ToPagedList(pageNum, pageSize));
+            }
+        }
+            //var errors = ModelState
+            //     .Where(x => x.Value.Errors.Count > 0)
+            //     .Select(x => new { x.Key, x.Value.Errors })
+            //     .ToArray();
         public ActionResult ProjectCreate()
         {
             var categories = _db.Category.ToList();
@@ -58,10 +73,6 @@ namespace website_projexts.Controllers
         {
 
             project.ProjectImage = "~/Content/img/default.jpeg";
-            var errors = ModelState
-                 .Where(x => x.Value.Errors.Count > 0)
-                 .Select(x => new { x.Key, x.Value.Errors })
-                 .ToArray();
 
             if (ModelState.IsValid)
             {
@@ -75,7 +86,8 @@ namespace website_projexts.Controllers
                         project.ProjectImage = "~/Content/img/" + filename;
                         project.UploadImage.SaveAs(Path.Combine(Server.MapPath("~/Content/img/"), filename));
                     }
-                    project.UserID = Convert.ToInt32(Session["idUser"]);
+                    //project.UserID = Convert.ToInt32(Session["idUser"]);
+                    project.UserID = 1;
                     project.Raised = 0;
                     project.PostedTime = DateTime.Now;
 
@@ -91,10 +103,55 @@ namespace website_projexts.Controllers
             return RedirectToAction("ProjectCreate");
         }
 
+        public ActionResult ProjectEdit(int id)
+        {
+            var categories = _db.Category.ToList();
+            ViewBag.Categories = new SelectList(categories, "CategoryID", "Name");
+            var project = _db.Projects.SingleOrDefault(p => p.ProjectID == id);
+
+            return View(project);
+        }
+        [HttpPost]
+        public ActionResult ProjectEdit(int id, Projects project)
+        {
+            if(ModelState.IsValid)
+            {
+                if (project.UploadImage != null)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(project.UploadImage.FileName);
+                    string extent = Path.GetExtension(project.UploadImage.FileName);
+                    filename = filename + extent;
+                    project.ProjectImage = "~/Content/img/" + filename;
+                    project.UploadImage.SaveAs(Path.Combine(Server.MapPath("~/Content/img/"), filename));
+                }
+                else
+                {
+                    var image = _db.Projects.AsNoTracking().SingleOrDefault(p => p.ProjectID == id);
+                    project.ProjectImage = image.ProjectImage;                    
+                }
+                _db.Entry(project).State = EntityState.Modified;
+                _db.Configuration.ValidateOnSaveEnabled = false;
+                _db.SaveChanges();
+            }
+            return RedirectToAction("ProjectEdit");
+        }
+        public ActionResult ProjectDelete(int id)
+        {
+            var project = _db.Projects.SingleOrDefault(p => p.ProjectID == id);
+            return View(project);
+        }
+        public ActionResult ProjectConfirmDelete(int projectID)
+        {
+            Projects product = _db.Projects.Where(s => s.ProjectID == projectID).FirstOrDefault();
+            _db.Projects.Remove(product);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         //var errors = ModelState
         //     .Where(x => x.Value.Errors.Count > 0)
         //     .Select(x => new { x.Key, x.Value.Errors })
         //     .ToArray();
+
 
         public ActionResult ProjectDetail(int id)
         {
@@ -102,6 +159,8 @@ namespace website_projexts.Controllers
 
             return View(project);
         }
+
+ 
         public ActionResult DonationCreate(int projectID)
         {
             Donation model = new Donation
@@ -136,7 +195,6 @@ namespace website_projexts.Controllers
                     return PartialView(donation);
                 }
             }
-
             return PartialView(null);
         }
     }

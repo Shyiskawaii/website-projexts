@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class pein : DbMigration
+    public partial class final3 : DbMigration
     {
         public override void Up()
         {
@@ -24,7 +24,7 @@
                         UserID = c.Int(nullable: false),
                         CategoryID = c.Int(nullable: false),
                         ProjectName = c.String(nullable: false, maxLength: 30),
-                        ShortDescription = c.String(nullable: false, maxLength: 50),
+                        ShortDescription = c.String(nullable: false, maxLength: 100),
                         LongDescription = c.String(nullable: false, maxLength: 2000),
                         Goal = c.Int(nullable: false),
                         Raised = c.Int(nullable: false),

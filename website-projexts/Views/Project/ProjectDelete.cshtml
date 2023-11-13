@@ -1,0 +1,177 @@
+﻿@model website_projexts.Models.Projects
+
+<link href="~/Content/procreate.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ProjectCreate</title>
+</head>
+<body>
+    <section class="clean-block clean-form dark align-self-center">
+        <div class="container">
+            <div class="block-heading" style="padding-top: 0px;">
+                <h2 class="text-primary">Tạo Dự Án</h2>
+                <p></p>
+            </div>
+
+                <div style="max-width: 1000px;">
+                    <div class="form-group mb-3">
+                        <label class="form-label">Tên Dự Án</label>
+                        @Html.DisplayFor(model => model.ProjectName)
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Chọn Danh Mục</label>
+                        @Html.DisplayFor(model => model.Category.Name)
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Mục Tiêu</label>
+                        @Html.DisplayFor(model => model.Goal)
+                    </div>
+
+                    <div class="color form-group mb-3">
+                        <label class="form-label" style="margin-top: 15px;">Hình ảnh</label>
+                        <section>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12">
+                                        <div class="file-upload-wrapper">
+                                            <div class="flex-wrap view file-upload" style="padding-bottom: 7px; padding-right: 4px; height: 302px;">
+                                                <img class="w-100 img-fluid" style="height: 230px;object-fit: cover;"
+                                                     src="@Url.Content(Model.ProjectImage)" id="previewImg" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Tóm Tắt Về Dự Án</label>
+                        @Html.DisplayFor(model => model.ShortDescription, new { @class = "form-control", @id = "summernote", style = "height: 7rem;" })
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Thông Tin về Dự Án</label>
+                        @Html.DisplayFor(model => model.ShortDescription, new { @class = "form-control", @id = "summernote-1", style = "height: 30rem;" })
+                    </div>
+
+                    <hr style="margin-top: 30px;margin-bottom: 10px;">
+                    <div class="form-group mb-3">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ActionLink("Xóa", "ProjectConfirmDelete", new { projectID = Model.ProjectID }, new { @class = "btn btn-primary d-block w-100"})
+                            <a class="btn btn-danger d-block w-100" role="button" href="@Url.Action("ProjectList")" style="margin-top: 15px;"><i class="fa fa-arrow-left"></i>&nbsp;Hủy Bỏ</a>
+                        }
+                    </div>
+                </div>
+        </div>
+    </section>
+</body>
+</html>
+
+
+
+@*<h2>ProjectDelete</h2>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Projects</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Category.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Category.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.User.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.FirstName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProjectName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProjectName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ShortDescription)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ShortDescription)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.LongDescription)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LongDescription)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Goal)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Goal)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Raised)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Raised)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PostedTime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PostedTime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ProjectImage)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ProjectImage)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                @Html.ActionLink("Delete","ProjectConfirmDelete", new { projectID = Model.ProjectID })
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>*@

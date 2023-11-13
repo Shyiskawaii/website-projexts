@@ -29,5 +29,27 @@ namespace website_projexts.Controllers
 
             return PartialView(null);
         }
+        public ActionResult UpdateCreate(int projectID)
+        {
+            Update model = new Update
+            {
+                ProjectID = projectID
+            };
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UpdateCreate(Update update, int projectID) 
+        {
+            if (ModelState.IsValid)
+            {
+                update.UpdateTime = DateTime.Now;
+                update.ProjectID = projectID;
+
+                _db.Update.Add(update);
+                _db.SaveChanges();
+                return RedirectToAction("ProjectList");
+            }
+            return View();
+        }
     }
 }

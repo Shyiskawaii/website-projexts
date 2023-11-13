@@ -1,7 +1,10 @@
 ﻿@model website_projexts.Models.Projects
 
-<link href="~/Content/prodetail.css" rel="stylesheet" />
+<link href="~/Content/procreate.css" rel="stylesheet" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -20,11 +23,11 @@
                 <h2 class="text-primary">Tạo Dự Án</h2>
                 <p></p>
             </div>
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("ProjectCreate", "Project", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
-                
-
-                <div style="max-width: 700px;">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true,"Đã xảy ra lỗi, xin thử lại!")
+                <div style="max-width: 1000px;">
 
                     <div class="form-group mb-3">
                         <label class="form-label">Tên Dự Án</label>
@@ -51,9 +54,9 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12">
                                         <div class="file-upload-wrapper">
-                                            <div class="flex-wrap view file-upload" style="padding-bottom: 7px;padding-right: 4px;">
-                                                <img class="w-100 img-fluid" style="height: 130px;object-fit: cover;"
-                                                     scr="@Url.Content(Model.ProjectImage)" id="previewImg"/>
+                                            <div class="flex-wrap view file-upload" style="padding-bottom: 7px; padding-right: 4px; height: 302px;">
+                                                <img class="w-100 img-fluid" style="height: 230px;object-fit: cover;"
+                                                     src="@Url.Content(Model.ProjectImage)" id="previewImg" />
                                                 <input class="form-control file_upload" type="file" name="UploadImage" id="input-file-now"
                                                        onchange="ChangeImage(this, document.getElementById('previewImg'))">
                                             </div>
@@ -86,65 +89,5 @@
 
         </div>
     </section>
-
-    @*@using (Html.BeginForm())
-                {
-                @Html.AntiForgeryToken()
-
-                <div class="form-horizontal">
-                    <h4>Projects</h4>
-                    <hr />
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })-->
-                    @*<div class="form-group">
-        @Html.LabelFor(model => model.CategoryID, "CategoryID", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-        @Html.DropDownList("CategoryID", null, htmlAttributes: new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
-        </div>
-        </div>
-
-        <!--<div class="form-group">
-                    @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ShortDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.LongDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.LongDescription, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.LongDescription, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Goal, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Goal, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Goal, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-default" />
-                    </div>
-                </div>
-            </div>
-        }
-
-        <div>
-            @Html.ActionLink("Back to List", "Index")
-        </div>*@
 </body>
 </html>

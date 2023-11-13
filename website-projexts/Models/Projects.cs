@@ -24,28 +24,27 @@ namespace website_projexts.Models
         public virtual Category Category{ get; set; }
 
 
-        public ICollection<Donation> Donations { get; set; }
-        public ICollection<Update> Updates { get; set; }
-
-
-
         [Required(ErrorMessage = "Vui lòng nhập tên dự án!")]
         [StringLength(30, MinimumLength = 3,ErrorMessage ="Tên dự án không hợp lệ!")]
         public string ProjectName { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tóm tắt dự án!")]
-        [StringLength(50, MinimumLength = 3,ErrorMessage = "Tóm tắt dự án dài từ 3-50 chữ!")]
+        [StringLength(100, MinimumLength = 3,ErrorMessage = "Tóm tắt dự án dài từ 3-100 chữ!")]
         public string ShortDescription { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập thông tin dự án!")]
         [StringLength(2000, MinimumLength = 3,ErrorMessage = "Thông tin dự án dài từ 3-2000 chữ!")]
         public string LongDescription { get; set; } 
         [Required(ErrorMessage ="Vui lòng nhập mục tiêu gây quỹ!")]
         [Range(100000,100000000,ErrorMessage = "Mục tiêu gây quỹ từ 100k-100tr!")]
+
         public int Goal{ get; set; } 
         public int Raised { get; set; }
         public DateTime PostedTime { get; set; }
 
-        public string ProjectImage { get; set; }
+        public ICollection<Donation> Donations { get; set; }
+        public ICollection<Update> Updates { get; set; }
 
+
+        public string ProjectImage { get; set; }
         [NotMapped]
         public HttpPostedFileBase UploadImage { get; set; }
     }

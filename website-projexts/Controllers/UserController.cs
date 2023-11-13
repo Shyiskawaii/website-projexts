@@ -1,12 +1,16 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using website_projexts.Context;
 using website_projexts.Models;
+using website_projexts.ViewModels;
 
 namespace website_projexts.Controllers
 {
@@ -75,6 +79,69 @@ namespace website_projexts.Controllers
                 }
             }
             return View();
+        }
+        public ActionResult UserPage(int id)
+        {
+            var user = _db.User.SingleOrDefault(p => p.UserID == id);
+
+            // Calculate the additional information
+            int createdProjectsCount = _db.Projects.Count(p => p.UserID == id);
+             decimal totalFundsRaised = _db.Projects.Where(p => p.UserID == id).Sum(p => (decimal?)p.Raised) ?? 0;
+            int donationsCount = _db.Donation.Count(d => d.UserID == id);
+            decimal totalDonatedAmount = _db.Donation.Where(d => d.UserID == id).Sum(d => (decimal?)d.Donated) ?? 0;
+
+            var viewModel = new UserEdit
+            {
+                UserID = user.UserID,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.UserName,
+                Email = user.Email,
+                UserImage = user.UserImage,
+                CreatedProjectsCount = createdProjectsCount,
+                TotalFundsRaised = totalFundsRaised,
+                DonationsCount = donationsCount,
+                TotalDonatedAmount = totalDonatedAmount
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult UserPage(UserEdit useredit)
+        {
+            var user = _db.User.SingleOrDefault(p => p.UserID == useredit.UserID);
+            user.UserID = useredit.UserID;
+            user.FirstName = useredit.FirstName;
+            user.LastName = useredit.LastName;
+            user.UserName = useredit.UserName;
+            user.Email = useredit.Email;
+            
+            if (ModelState.IsValid)
+            {
+                if (useredit.UploadImage != null)
+                {
+                    string filename = Path.GetFileNameWithoutExtension(useredit.UploadImage.FileName);
+                    string extent = Path.GetExtension(useredit.UploadImage.FileName);
+                    filename = filename + extent;
+                    user.UserImage = "~/Content/img/" + filename;
+                    useredit.UploadImage.SaveAs(Path.Combine(Server.MapPath("~/Content/img/"), filename));
+                }
+
+                _db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                _db.Configuration.ValidateOnSaveEnabled = false;
+                _db.SaveChanges();
+
+                return RedirectToAction("UserPage", new { id = user.UserID });
+            }
+
+            return View(user);
+        }
+        public PartialViewResult UserProject(int id)
+        {
+            if (_db.Projects.Any(p => p.UserID == id))
+            {
+                var userProject = _db.Projects.Where(p => p.UserID == id);
+            }
+            return PartialView(null);
         }
 
         public ActionResult Logout()

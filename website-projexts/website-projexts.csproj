@@ -142,9 +142,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202311070403503_pein.cs" />
-    <Compile Include="Migrations\202311070403503_pein.designer.cs">
-      <DependentUpon>202311070403503_pein.cs</DependentUpon>
+    <Compile Include="Migrations\202311091431390_final3.cs" />
+    <Compile Include="Migrations\202311091431390_final3.designer.cs">
+      <DependentUpon>202311091431390_final3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -153,6 +153,7 @@
     <Compile Include="Models\Update.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\UserEdit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -181,6 +182,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\procreate.css" />
     <Content Include="Content\prodetail.css" />
+    <Content Include="Content\userpage.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -223,6 +225,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -244,6 +247,12 @@
     <Content Include="Views\Category\CategoryPartial.cshtml" />
     <Content Include="Views\Update\UpdatePartial.cshtml" />
     <Content Include="Views\Project\DonationPartial.cshtml" />
+    <Content Include="Views\Update\UpdateCreate.cshtml" />
+    <Content Include="Views\User\UserPage.cshtml" />
+    <Content Include="Views\Project\ProjectEdit.cshtml" />
+    <Content Include="Views\Project\ProjectDelete.cshtml" />
+    <Content Include="Views\Project\AdminControler.cshtml" />
+    <Content Include="Views\User\UserProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -254,8 +263,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202311070403503_pein.resx">
-      <DependentUpon>202311070403503_pein.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202311091431390_final3.resx">
+      <DependentUpon>202311091431390_final3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

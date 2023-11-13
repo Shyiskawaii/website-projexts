@@ -1,0 +1,113 @@
+﻿@model website_projexts.ViewModels.UserEdit
+
+<link href="~/Content/userpage.css" rel="stylesheet" />
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+@{
+    ViewBag.Title = "UserPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("UserPage", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "Có Lỗi Xảy Ra", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.UserID)
+
+    <div class="container">
+        <div class="row gutters">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img src="@Url.Content(Model.UserImage)" id="previewImg">
+                                </div>
+                                <h5 class="user-name">
+                                    @Model.FullName()
+                                </h5>
+                                <h6 class="user-email">
+                                    @Model.Email
+                                </h6>
+                            </div>
+                            <div class="about">
+                                <input type="file" id="input-file-now" name="UploadImage" class="file_upload form-control"
+                                       onchange="ChangeImage(this, document.getElementById('previewImg'))">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-9">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row gutters">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.UserName, new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LastName, new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Email, new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FirstName, new { @class = "form-label" })
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <h6 class="text-primary mt-3 mb-2">Stats</h6>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex">
+                                <label class="form-label" for="Street" style="margin-right: 16px;">Số Dự Án Đã Tạo:</label>
+                                <p>@Model.CreatedProjectsCount</p>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex">
+                                <label class="form-label" for="ciTy" style="margin-right: 16px;">Số Lần Ủng Hộ Dự Án Khác:</label>
+                                <p>@Model.TotalFundsRaised</p>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex">
+                                <label class="form-label" for="sTate" style="margin-right: 16px;">Tổng Số Tiền Đã Gây Quỹ</label>
+                                <p>@Model.DonationsCount</p>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex">
+                                <label class="form-label" for="zIp" style="margin-right: 16px;">Tổng Số Tiền Đã Ủng Hộ:</label>
+                                <p>@Model.TotalDonatedAmount</p>
+                            </div>
+                        </div>
+                        <div class="row gutters">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                                <div class="text-right">
+                                    <input class="btn btn-primary" type="submit" id="submit" value="Cập nhật">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@{Html.RenderAction("UserProject", "User", new { id = Model.UserID });}

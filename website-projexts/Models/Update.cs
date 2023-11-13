@@ -20,8 +20,11 @@ namespace website_projexts.Models
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Cập nhật dài từ 3-50 chữ!")]
         public string UpdateText {  get; set; }
         public DateTime UpdateTime { get; set; }
-        public string UpdateImage { get; set; } = null;
 
-       
+        public string UpdateImage { get; set; } 
+
+        [NotMapped]
+        public HttpPostedFileBase UploadImage { get; set; }
+
     }
 }
