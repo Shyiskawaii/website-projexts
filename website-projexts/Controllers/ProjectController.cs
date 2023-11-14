@@ -38,7 +38,7 @@ namespace website_projexts.Controllers
 
         public ActionResult ProjectList(int? selectedCategoryId, int? page, string search)
         {
-            int pageSize = 12;
+            int pageSize = 9;
             int pageNum = (page ?? 1);
             if (selectedCategoryId != null)
             {
@@ -62,11 +62,18 @@ namespace website_projexts.Controllers
             //     .ToArray();
         public ActionResult ProjectCreate()
         {
-            var categories = _db.Category.ToList();
-            ViewBag.Categories = new SelectList(categories, "CategoryID", "Name");
-            var model = new Projects();
-            model.ProjectImage = "~/Content/img/default.jpeg";
-            return View(model);
+            if(Session["UserID"] != null)
+            {
+                var categories = _db.Category.ToList();
+                ViewBag.Categories = new SelectList(categories, "CategoryID", "Name");
+                var model = new Projects();
+                model.ProjectImage = "~/Content/img/default.jpeg";
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Login","User");
+            }
         }
         [HttpPost]
         public ActionResult ProjectCreate(Projects project)
@@ -103,13 +110,28 @@ namespace website_projexts.Controllers
             return RedirectToAction("ProjectCreate");
         }
 
-        public ActionResult ProjectEdit(int id)
+        public ActionResult ProjectEdit(int? id)
         {
-            var categories = _db.Category.ToList();
-            ViewBag.Categories = new SelectList(categories, "CategoryID", "Name");
-            var project = _db.Projects.SingleOrDefault(p => p.ProjectID == id);
+            if (id == null)
+            {
+                return RedirectToAction("Login", "User");
 
-            return View(project);
+            }
+            else if (Session["UserID"] != null || Session["UserRoles"] == "admin")
+            {
+                if (_db.Projects.Any(p => p.ProjectID == id))
+                {
+                    var project = _db.Projects.SingleOrDefault(p => p.ProjectID == id);
+                    if (project.UserID != Convert.ToInt32(Session["UserID"]))
+                        return Content("");
+                    var categories = _db.Category.ToList();
+                    ViewBag.Categories = new SelectList(categories, "CategoryID", "Name");
+
+                    return View(project);
+                }
+                return Content("");
+            }
+            return RedirectToAction("Login", "User");
         }
         [HttpPost]
         public ActionResult ProjectEdit(int id, Projects project)
@@ -135,10 +157,24 @@ namespace website_projexts.Controllers
             }
             return RedirectToAction("ProjectEdit");
         }
-        public ActionResult ProjectDelete(int id)
+        public ActionResult ProjectDelete(int? id)
         {
-            var project = _db.Projects.SingleOrDefault(p => p.ProjectID == id);
-            return View(project);
+            if (id == null)
+            {
+                return RedirectToAction("Login", "User");
+
+            }
+            else if (Session["UserID"] != null || Session["UserRoles"] == "admin")
+            {
+                if (_db.Projects.Any(p => p.ProjectID == id))
+                {
+                    var project = _db.Projects.SingleOrDefault(p => p.ProjectID == id);
+                    if (project.UserID != Convert.ToInt32(Session["UserID"]) || Session["UserRoles"] != "admin")
+                        return Content("");
+                    return View(project);
+                }
+            }
+            return RedirectToAction("Login", "User");
         }
         public ActionResult ProjectConfirmDelete(int projectID)
         {
@@ -155,47 +191,20 @@ namespace website_projexts.Controllers
 
         public ActionResult ProjectDetail(int id)
         {
-            var project = _db.Projects.Include(p => p.Donations).SingleOrDefault(p => p.ProjectID == id);
-
-            return View(project);
-        }
-
- 
-        public ActionResult DonationCreate(int projectID)
-        {
-            Donation model = new Donation
+            if (id == null)
             {
-                ProjectID = projectID
-            };
-            return View(model);
-        }
-        [HttpPost]
-        public ActionResult DonationCreate(int projectID,Donation donation)
-        {
-            if (ModelState.IsValid)
-            {
-                donation.UserID = Convert.ToInt32(Session["idUser"]);
-                donation.DonationTime = DateTime.Now;
-                donation.ProjectID = projectID;
-
-                _db.Donation.Add(donation);
-                _db.SaveChanges();
-                return RedirectToAction("ProjectList");
+                return RedirectToAction("Login", "User");
             }
-            return View();
+            
+            if (_db.Projects.Any(p => p.ProjectID == id))
+            {
+                var project = _db.Projects.Include(p => p.Donations).SingleOrDefault(p => p.ProjectID == id);
+                return View(project);
+            }
+            
+            return RedirectToAction("Login", "User");
         }
 
-        public PartialViewResult DonationPartial(int? projectID)
-        {
-            if (projectID.HasValue)
-            {
-                var donation = _db.Donation.Include(d => d.User).Where(u => u.ProjectID == projectID).ToList();
-                if (donation.Count > 0)
-                {
-                    return PartialView(donation);
-                }
-            }
-            return PartialView(null);
-        }
+      
     }
 }

@@ -135,6 +135,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Context\OurDBContext.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\UpdateController.cs" />
@@ -142,9 +143,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202311091431390_final3.cs" />
-    <Compile Include="Migrations\202311091431390_final3.designer.cs">
-      <DependentUpon>202311091431390_final3.cs</DependentUpon>
+    <Compile Include="Migrations\202311131706094_finalfinal2.cs" />
+    <Compile Include="Migrations\202311131706094_finalfinal2.designer.cs">
+      <DependentUpon>202311131706094_finalfinal2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -243,16 +244,16 @@
     <Content Include="Views\Project\ProjectList.cshtml" />
     <Content Include="Views\Project\ProjectDetail.cshtml" />
     <Content Include="Views\Project\ProjectCreate.cshtml" />
-    <Content Include="Views\Project\DonationCreate.cshtml" />
     <Content Include="Views\Category\CategoryPartial.cshtml" />
     <Content Include="Views\Update\UpdatePartial.cshtml" />
-    <Content Include="Views\Project\DonationPartial.cshtml" />
     <Content Include="Views\Update\UpdateCreate.cshtml" />
     <Content Include="Views\User\UserPage.cshtml" />
     <Content Include="Views\Project\ProjectEdit.cshtml" />
     <Content Include="Views\Project\ProjectDelete.cshtml" />
     <Content Include="Views\Project\AdminControler.cshtml" />
     <Content Include="Views\User\UserProject.cshtml" />
+    <Content Include="Views\Donation\DonationCreate.cshtml" />
+    <Content Include="Views\Donation\DonationPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -263,8 +264,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202311091431390_final3.resx">
-      <DependentUpon>202311091431390_final3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202311131706094_finalfinal2.resx">
+      <DependentUpon>202311131706094_finalfinal2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

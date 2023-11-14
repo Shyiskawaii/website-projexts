@@ -7,7 +7,38 @@
 
 <h2>UpdateCreate</h2>
 
-@using (Html.BeginForm()) 
+
+<section class="clean-block clean-form dark">
+    <div class="container">
+        <div class="block-heading" style="padding-top: 0px;">
+            <h2 class="text-primary">Cập Nhật Dự Án ProjectName</h2>
+            <p></p>
+        </div>
+        @using (Html.BeginForm("UpdateCreate","",FormMethod.Post,new { @style = "max-width: 700px;" ,@role = "form" ,@action = "indexTeachers.html" ,@method = "post", @enctype = "multipart/form-data" }))
+        {
+
+                <div class="form-group mb-3"><label class="form-label">Tên Cập Nhật</label><input class="form-control" type="text" required="" autocomplete="off" placeholder="Dự án" name="ProjectName"></div>
+                <div class="color form-group mb-3">
+                    <label class="form-label" style="margin-top: 15px;">Hình ảnh</label>
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-xxl-12">
+                                    <div class="file-upload-wrapper">
+                                        <div class="flex-wrap view file-upload" style="padding-bottom: 7px;padding-right: 4px;height: 302px;"><img class="w-100 img-fluid" style="height: 230px;object-fit: cover;"><input class="form-control file_upload" type="file" id="input-file-now"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="form-group mb-3"><label class="form-label">Nội Dung Cập Nhật</label><textarea class="form-control" id="summernote-1" name="offerTeacher" placeholder="Thông tin" style="height: 30rem;"></textarea></div>
+                <hr style="margin-top: 30px;margin-bottom: 10px;">
+                <div class="form-group mb-3"><button class="btn btn-primary d-block w-100" id="submitButton" type="submit"><i class="fas fa-save"></i>&nbsp;Cập Nhậts</button></div>
+            }
+        </div>
+</section>
+@*@using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
@@ -46,5 +77,5 @@
             </div>
         </div>
     </div>
-}
+}*@
 

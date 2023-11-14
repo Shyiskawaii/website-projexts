@@ -1,33 +1,77 @@
 ﻿@model website_projexts.Models.User
 
+<link href="~/Content/procreate.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 @{
-    ViewBag.Title = "Login";
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row justify-content-md-center">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                Login
-            </div>
-            <div class="card-body">
-                @using (Html.BeginForm("Login", "Home", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Email)
-                        @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
+    <section class="clean-block clean-form dark align-self-center" style="padding-top: 60px;">
 
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-9 col-xl-9 col-xxl-7">
+                    <div class="card shadow-lg o-hidden border-0 my-5">
+                        <div class="card-body p-0">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="p-5">
+                                        <div class="text-center">
+                                            <h4 class="text-dark mb-4">Đăng Nhập</h4>
+                                        </div>
+                                        @using (Html.BeginForm("Login", "User", FormMethod.Post))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <div class="mb-3">
+                                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-user", @placeholder = "Nhập Địa Chỉ Email", @required = "required" })
+                                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="mb-3">
+                                                @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-user", @placeholder = "Mật Khẩu", @required = "required" })
+                                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="row mb-3">
+                                                <p id="errorMsg" class="text-danger" style="display:none;">Paragraph</p>
+                                            </div>
+                                            <input type="submit" name="submit" class="btn btn-primary d-block btn-user w-100" value="Đăng Nhập" />
+                                            <hr>
+                                            <div class="text-center"><a class="small" href="@Url.Action("Register","User")">Tạo Tài Khoản</a></div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password)
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" name="submit" class="btn btn-primary" value="Login" />
-                    </div>
-                }
+                </div>
             </div>
         </div>
-    </div>
-</div>
+</section>
+    @*<div class="row justify-content-md-center">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Login
+                    </div>
+                    <div class="card-body">
+                        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email)
+                                @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", @placeholder = "Email" })
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password)
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-primary" value="Login" />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>*@

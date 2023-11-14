@@ -25,6 +25,11 @@ namespace website_projexts.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(User user)
         {
+            user.UserRoles = "user";
+            //var errors = ModelState
+            //     .Where(x => x.Value.Errors.Count > 0)
+            //     .Select(x => new { x.Key, x.Value.Errors })
+            //     .ToArray();
             if (ModelState.IsValid)
             {
                 var check = _db.User.FirstOrDefault(s => s.Email == user.Email);
@@ -37,7 +42,7 @@ namespace website_projexts.Controllers
                     user.UserImage = "~/Content/img/userdefault.jpeg";
                     _db.User.Add(user);
                     _db.SaveChanges();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Login");
                 }
                 else
                 {
@@ -67,43 +72,54 @@ namespace website_projexts.Controllers
                 if (data.Count() > 0)
                 {
                     //add session
-                    Session["FullName"] = data.FirstOrDefault().FirstName + " " + data.FirstOrDefault().LastName;
+                    Session["FullName"] = data.FirstOrDefault().LastName + " " + data.FirstOrDefault().FirstName;
                     Session["Email"] = data.FirstOrDefault().Email;
-                    Session["idUser"] = data.FirstOrDefault().UserID;
-                    return RedirectToAction("Index");
+                    Session["UserID"] = data.FirstOrDefault().UserID;
+                    Session["UserRoles"] = data.FirstOrDefault().UserRoles;
+                    return RedirectToAction("Index","Home");
                 }
                 else
                 {
                     ViewBag.error = "Login failed";
-                    return RedirectToAction("Login");
+                    return RedirectToAction("Login","User");
                 }
             }
             return View();
         }
-        public ActionResult UserPage(int id)
+        public ActionResult UserPage(int? id)
         {
-            var user = _db.User.SingleOrDefault(p => p.UserID == id);
-
-            // Calculate the additional information
-            int createdProjectsCount = _db.Projects.Count(p => p.UserID == id);
-             decimal totalFundsRaised = _db.Projects.Where(p => p.UserID == id).Sum(p => (decimal?)p.Raised) ?? 0;
-            int donationsCount = _db.Donation.Count(d => d.UserID == id);
-            decimal totalDonatedAmount = _db.Donation.Where(d => d.UserID == id).Sum(d => (decimal?)d.Donated) ?? 0;
-
-            var viewModel = new UserEdit
+            if (id == null)
             {
-                UserID = user.UserID,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                UserName = user.UserName,
-                Email = user.Email,
-                UserImage = user.UserImage,
-                CreatedProjectsCount = createdProjectsCount,
-                TotalFundsRaised = totalFundsRaised,
-                DonationsCount = donationsCount,
-                TotalDonatedAmount = totalDonatedAmount
-            };
-            return View(viewModel);
+                return RedirectToAction("Login", "User");
+            }
+            else if (Session["UserID"] != null || Session["UserRoles"] == "admin")
+            {
+                if (_db.Projects.Any(p => p.UserID == id))
+                {
+                    var user = _db.User.SingleOrDefault(p => p.UserID == id);
+                    int createdProjectsCount = _db.Projects.Count(p => p.UserID == id);
+                     decimal totalFundsRaised = _db.Projects.Where(p => p.UserID == id).Sum(p => (decimal?)p.Raised) ?? 0;
+                    int donationsCount = _db.Donation.Count(d => d.UserID == id);
+                    decimal totalDonatedAmount = _db.Donation.Where(d => d.UserID == id).Sum(d => (decimal?)d.Donated) ?? 0;
+
+                    var viewModel = new UserEdit
+                    {
+                        UserID = user.UserID,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        UserName = user.UserName,
+                        Email = user.Email,
+                        UserImage = user.UserImage,
+                        CreatedProjectsCount = createdProjectsCount,
+                        TotalFundsRaised = totalFundsRaised,
+                        DonationsCount = donationsCount,
+                        TotalDonatedAmount = totalDonatedAmount
+                    };
+                    return View(viewModel);
+                }
+            }
+            return RedirectToAction("Login", "User");
+            
         }
         [HttpPost]
         public ActionResult UserPage(UserEdit useredit)
@@ -139,7 +155,8 @@ namespace website_projexts.Controllers
         {
             if (_db.Projects.Any(p => p.UserID == id))
             {
-                var userProject = _db.Projects.Where(p => p.UserID == id);
+                var userProject = _db.Projects.Where(p => p.UserID == id).ToList();
+                return PartialView(userProject);
             }
             return PartialView(null);
         }

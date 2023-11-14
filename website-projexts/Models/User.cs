@@ -9,6 +9,8 @@ namespace website_projexts.Models
 {
     public class User
     {
+        
+        public string UserRoles { get; set; }
         [Key, Column(Order = 1)]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
