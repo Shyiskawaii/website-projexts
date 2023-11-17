@@ -1,0 +1,48 @@
+﻿@using website_projexts.Models
+@model List<Projects>
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/jquery")
+
+@foreach (var pro in Model)
+{
+    <div class="col col-12 col-md-6 col-lg-4">
+        <div class="card">
+            <img class="card-img-top w-100 d-block" style="height: 200px; object-fit: cover;"
+                 src="@Url.Content(pro.ProjectImage)">
+            <div class="card-body p-4">
+                <p class="text-primary card-text mb-0" style="text-decoration: none; color: #4AB67E ">
+                    @Html.DisplayFor(modelItem => pro.Category.Name)
+                </p>
+                <a class="stretched-link" style="text-decoration: none; color: #4AB67E "href="@Url.Action("ProjectDetail", "Project", new { id = pro.ProjectID})">
+                    <h4>
+                        <strong>
+                            @Html.DisplayFor(modelItem => pro.ProjectName)
+                        </strong>
+                    </h4>
+                </a>
+                <div class="card-text text-truncate-container">
+                    <p>
+                        @Html.DisplayFor(modelItem => pro.ShortDescription)
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="float-start">
+                        <p class="fw-bold" style="margin-bottom: 0;">Đóng Góp</p>
+                        <p>
+                            @Html.DisplayFor(modelItem => pro.Raised)đ
+                        </p>
+                    </div>
+                    <div class="float-end">
+                        <p class="fw-bold text-end" style="margin-bottom: 0;">Mục Tiêu</p>
+                        <p>
+                            @Html.DisplayFor(modelItem => pro.Goal)đ
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class finalfinal2 : DbMigration
+    public partial class finalfinal5 : DbMigration
     {
         public override void Up()
         {
@@ -75,7 +75,8 @@
                     {
                         UpdateId = c.Int(nullable: false, identity: true),
                         ProjectID = c.Int(nullable: false),
-                        UpdateText = c.String(nullable: false, maxLength: 50),
+                        UpdateName = c.String(nullable: false, maxLength: 100),
+                        UpdateText = c.String(nullable: false, maxLength: 2000),
                         UpdateTime = c.DateTime(nullable: false),
                         UpdateImage = c.String(),
                     })

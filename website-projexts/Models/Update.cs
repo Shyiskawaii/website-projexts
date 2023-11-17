@@ -16,8 +16,11 @@ namespace website_projexts.Models
         [ForeignKey("ProjectID")]
         public virtual Projects Project { get; set; }
 
+        [Required(ErrorMessage = "Vui lòng nhập tên cập nhật!")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Cập nhật dài từ 3-100 chữ!")]
+        public string UpdateName { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập cập nhật!")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Cập nhật dài từ 3-50 chữ!")]
+        [StringLength(2000, MinimumLength = 3, ErrorMessage = "Cập nhật dài từ 3-2000 chữ!")]
         public string UpdateText {  get; set; }
         public DateTime UpdateTime { get; set; }
 

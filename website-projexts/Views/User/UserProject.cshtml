@@ -46,7 +46,10 @@
                                         <td>@Html.DisplayFor(modelItem => item.Raised)&nbsp;vnd</td>
                                         <td>@Html.DisplayFor(modelItem => item.Goal)&nbsp;vnd</td>
                                         <td class="text-center align-middle" style="max-height: 60px;height: 60px;">
-                                            <a class="btn semicircle" role="button" href="@Url.Action("ProjectDetail", "Project", new { id = item.ProjectID })" style="color: #00bdff;">
+                                            <a class="btn semicircle" role="button" href="@Url.Action("UpdateCreate", "Update", new { projectId = item.ProjectID })" style="color: #00bdff;">
+                                                <i class="fa fa-plus"></i>
+                                            </a>
+                                            <a class="btn semicircle" role="button" href="@Url.Action("ProjectDetail", "Project", new { id = item.ProjectID })" style="color: #acaf00;">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                             <a class="btn semicircle" role="button" href="@Url.Action("ProjectEdit", "Project", new { id = item.ProjectID })" style="color: rgb(0,197,179);">

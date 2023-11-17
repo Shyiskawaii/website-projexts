@@ -19,9 +19,9 @@
         <div class="body">
             @update.UpdateTime
             <h2>
-                @update.UpdateText
+                @update.UpdateName
             </h2>
-            <div class="img-post"><img class="img-fluid d-block" src="https://via.placeholder.com/800x280/87CEFA/000000" alt="First slide"></div>
+            <div class="img-post"><img class="img-fluid d-block" src="@Url.Content(update.UpdateImage)"></div>
             <hr class="hr hr-blurry">
             <p>
                 @update.UpdateText

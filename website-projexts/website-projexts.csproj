@@ -143,9 +143,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202311131706094_finalfinal2.cs" />
-    <Compile Include="Migrations\202311131706094_finalfinal2.designer.cs">
-      <DependentUpon>202311131706094_finalfinal2.cs</DependentUpon>
+    <Compile Include="Migrations\202311140530388_finalfinal5.cs" />
+    <Compile Include="Migrations\202311140530388_finalfinal5.designer.cs">
+      <DependentUpon>202311140530388_finalfinal5.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -173,11 +173,13 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Content\img\header.jpg" />
+    <Content Include="Content\home.css" />
+    <Content Include="Content\img\header.jpeg" />
     <Content Include="Content\img\default.jpeg" />
     <Content Include="Content\img\project1.jpeg" />
     <Content Include="Content\img\project2.jpeg" />
     <Content Include="Content\img\project3.jpg" />
+    <Content Include="Content\img\logo.jpeg" />
     <Content Include="Content\img\trust.jpeg" />
     <Content Include="Content\img\userdefault.jpeg" />
     <Content Include="Content\PagedList.css" />
@@ -254,6 +256,9 @@
     <Content Include="Views\User\UserProject.cshtml" />
     <Content Include="Views\Donation\DonationCreate.cshtml" />
     <Content Include="Views\Donation\DonationPartial.cshtml" />
+    <Content Include="Views\Project\ProjectPartial.cshtml" />
+    <Content Include="Views\Home\UserStuff.cshtml" />
+    <Content Include="Views\Update\UpdateEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -264,8 +269,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202311131706094_finalfinal2.resx">
-      <DependentUpon>202311131706094_finalfinal2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202311140530388_finalfinal5.resx">
+      <DependentUpon>202311140530388_finalfinal5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

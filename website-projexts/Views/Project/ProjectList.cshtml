@@ -23,7 +23,7 @@
         <section class="clean-block clean-catalog dark">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">
+                    <h2 class="text-success">
                         Danh Mục Dự Án
                     </h2>
                     @using (Html.BeginForm("ProjectList", "Project", FormMethod.Get))
@@ -75,10 +75,10 @@
                                                 <img class="card-img-top w-100 d-block" style="height: 200px; object-fit: cover;"
                                                      src="@Url.Content(item.ProjectImage)">
                                                 <div class="card-body p-4">
-                                                    <p class="text-primary card-text mb-0">
+                                                    <p class="card-text mb-0" style="text-decoration: none; color: #4AB67E ">
                                                         @Html.DisplayFor(modelItem => item.Category.Name)
                                                     </p>
-                                                    <a class="stretched-link" href="@Url.Action("ProjectDetail", "Project", new { id = item.ProjectID})">
+                                                    <a class="stretched-link" style="text-decoration: none; color: #4AB67E " href="@Url.Action("ProjectDetail", "Project", new { id = item.ProjectID})">
                                                         <h4>
                                                             <strong>
                                                                 @Html.DisplayFor(modelItem => item.ProjectName)
@@ -116,10 +116,26 @@
             </div>
         </section>
 
-        Trang @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
-        <div class="MenuPage">
-            @Html.PagedListPager(Model, page => Url.Action("ProjectList", "Project", new { page = page }))
+        <div class="text-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    @Html.PagedListPager(Model, page => Url.Action("ProjectList", "Project", new { page = page }),
+                        new PagedListRenderOptions
+                        {
+                            DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+                            DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                            DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+                            DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+                            MaximumPageNumbersToDisplay = 5, // Adjust as needed
+                           
+                            DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+                            EllipsesFormat = "&#8230;", // Unicode for ellipsis
+                            
+                        })
+                </ul>
+            </nav>
         </div>
+
     </main>
 
 

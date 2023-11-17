@@ -1,0 +1,2 @@
+﻿<a class="nav-link d-flex" href="@Url.Action("UserPage","User",new { id = Session["UserID"] })">@ViewBag.UserName</a>
+<img class="rounded-circle d-flex flex-shrink-0 fit-cover" width="40" height="40" src="@Url.Content(@ViewBag.UserImage)" />

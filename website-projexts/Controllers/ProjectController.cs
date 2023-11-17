@@ -35,6 +35,11 @@ namespace website_projexts.Controllers
             }
             return View(_db.Projects.ToList());
         }
+        public PartialViewResult ProjectPartial()
+        {
+            var topProjects = _db.Projects.OrderByDescending(p => p.Raised).Take(3).ToList();
+            return PartialView(topProjects);
+        }
 
         public ActionResult ProjectList(int? selectedCategoryId, int? page, string search)
         {
@@ -56,10 +61,7 @@ namespace website_projexts.Controllers
                 return View(projectList.ToPagedList(pageNum, pageSize));
             }
         }
-            //var errors = ModelState
-            //     .Where(x => x.Value.Errors.Count > 0)
-            //     .Select(x => new { x.Key, x.Value.Errors })
-            //     .ToArray();
+            //var errors =ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
         public ActionResult ProjectCreate()
         {
             if(Session["UserID"] != null)
@@ -126,7 +128,7 @@ namespace website_projexts.Controllers
                         return Content("");
                     var categories = _db.Category.ToList();
                     ViewBag.Categories = new SelectList(categories, "CategoryID", "Name");
-
+                    ViewBag.ProjectID = id;
                     return View(project);
                 }
                 return Content("");

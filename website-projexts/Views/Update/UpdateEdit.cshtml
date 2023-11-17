@@ -1,30 +1,25 @@
-﻿@model website_projexts.Models.Update
-
+﻿@using website_projexts.Models
+@model List<Update>
 <link href="~/Content/procreate.css" rel="stylesheet" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
-@{
-    ViewBag.Title = "UpdateCreate";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
+@foreach (var update in Model)
+{
 <section class="clean-block clean-form dark">
     <div class="container">
-        <div class="block-heading" style="padding-top: 0px;">
-            <h2 class="text-primary">Cập Nhật Dự Án @ViewBag.ProjectName</h2>
-            <p></p>
-        </div>
-        @using (Html.BeginForm("UpdateCreate", "Update", FormMethod.Post, new { projectID = Model.ProjectID, @style = "max-width: 700px;", @enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("UpdateEdit", "Update", new { projectID = update.ProjectID }, FormMethod.Post, new { style = "max-width: 700px;", enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-            @Html.HiddenFor(model => model.ProjectID)
+            @Html.HiddenFor(model => update.ProjectID)
+            @Html.HiddenFor(model => update.UpdateId)
             @Html.ValidationSummary(true, "Đã xảy ra lỗi, xin thử lại!")
             <div class="form-group mb-3">
                 <label class="form-label">Tên Cập Nhật</label>
-                @Html.EditorFor(model => model.UpdateName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Dự án" } })
-                @Html.ValidationMessageFor(model => model.UpdateName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => update.UpdateName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => update.UpdateName, "", new { @class = "text-danger" })
             </div>
             <div class="color form-group mb-3">
                 <label class="form-label" style="margin-top: 15px;">Hình ảnh</label>
@@ -34,7 +29,7 @@
                             <div class="col-sm-12 col-md-12 col-xxl-12">
                                 <div class="file-upload-wrapper">
                                     <div class="flex-wrap view file-upload" style="padding-bottom: 7px;padding-right: 4px;height: 302px;">
-                                        <img class="w-100 img-fluid" style="height: 230px;object-fit: cover;" src="@Url.Content(Model.UpdateImage)" id="previewImg">
+                                        <img class="w-100 img-fluid" style="height: 230px;object-fit: cover;" src="@Url.Content(update.UpdateImage)" id="previewImg">
                                         <input class="form-control file_upload" type="file" id="input-file-now" name="UploadImage"
                                                onchange="ChangeImage(this, document.getElementById('previewImg'))">
                                     </div>
@@ -46,8 +41,8 @@
             </div>
             <div class="form-group mb-3">
                 <label class="form-label">Nội Dung Cập Nhật</label>
-                @Html.EditorFor(model => model.UpdateText, new { htmlAttributes = new { @class = "form-control", @id = "summernote-1" ,@placeholder = "Thông tin" ,@style = "height: 30rem;" } })
-                @Html.ValidationMessageFor(model => model.UpdateText, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => update.UpdateText, new { htmlAttributes = new { @class = "form-control", @id = "summernote-1", @style = "height: 30rem;" } })
+                @Html.ValidationMessageFor(model => update.UpdateText, "", new { @class = "text-danger" })
             </div>
             <hr style="margin-top: 30px;margin-bottom: 10px;">
             <div class="form-group mb-3">
@@ -56,6 +51,7 @@
         }
     </div>
 </section>
+}
 @*@using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -64,6 +60,23 @@
             <h4>Update</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.UpdateId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProjectID, "ProjectID", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ProjectID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ProjectID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UpdateName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UpdateName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UpdateName, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.UpdateText, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -91,9 +104,12 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
         </div>
-    }*@
+    }
 
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
