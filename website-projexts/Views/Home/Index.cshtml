@@ -3,6 +3,7 @@
 }
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
 @Styles.Render("~/Content/css")
 @Scripts.Render("~/bundles/modernizr")
 @Scripts.Render("~/bundles/bootstrap")
@@ -76,21 +77,74 @@
             </div>
         </section>
         <section style="background-color:#D9D9D9;">
-            <div class="container py-4 py-xl-5">
-                <div class="row gy-4 gy-md-0">
-                    <div class="col-md-6">
-                        <div class="p-xl-5 m-xl-5"><img class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;" src="~/Content/img/trust.jpeg"></div>
-                    </div>
-                    <div class="col-md-6 d-md-flex align-items-md-center">
-                        <div style="max-width: 350px;">
-                            <h2 class="text-uppercase fw-bold">NIỀM TIN VÀ TRÁCH NHIỆM</h2>
-                            <p class="my-3">Chúng tôi luôn đặt niềm tin và trách nhiệm lên hàng đầu. Chúng tôi tin rằng mỗi cá nhân có trách nhiệm bảo vệ môi trường và góp phần vào việc duy trì hành tinh xanh sạch.</p><a class="btn btn-primary btn-lg me-2" role="button" href="#">Bảo Vệ Môi Trường Ngay!</a>
+            <div id="slider" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container py-4 py-xl-5">
+                            <div class="row gy-4 gy-md-0">
+                                <div class="col-md-6">
+                                    <div class="p-xl-5 m-xl-5">
+                                        <img class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;" src="~/Content/img/trust.jpeg">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 d-md-flex align-items-md-center">
+                                    <div style="max-width: 350px; font-family: 'Montserrat', sans-serif;">
+                                        <h2 class="text-uppercase fw-bold">NIỀM TIN VÀ TRÁCH NHIỆM</h2>
+                                        <p class="my-3">Chúng tôi luôn đặt niềm tin và trách nhiệm lên hàng đầu. Chúng tôi tin rằng mỗi cá nhân có trách nhiệm bảo vệ môi trường và góp phần vào việc duy trì hành tinh xanh sạch.</p>
+                                        <a class="btn btn-primary btn-lg me-2" role="button" href="#">Bảo Vệ Môi Trường Ngay!</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="carousel-item">
+                        <div class="container py-4 py-xl-5">
+                            <div class="row gy-4 gy-md-0">
+                                <div class="col-md-6">
+                                    <div class="p-xl-5 m-xl-5">
+                                        <img class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;" src="~/Content/img/PlantTree.jpg" alt="Planting Tree Image">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 d-md-flex align-items-md-center">
+                                    <div style="max-width: 350px; font-family: 'Montserrat', sans-serif;">
+                                        <h2 class="text-uppercase fw-bold mb-4" style="color: #00695c;">BẠN CÓ TRỒNG CÂY THƯỜNG XUYÊN KHÔNG?</h2>
+                                        <p style="font-size: 1.2rem; line-height: 1.5; color: #444;">Việc trồng cây không chỉ là một công việc; đó là một cam kết với một tương lai xanh sạch hơn. Hãy tham gia cùng chúng tôi để tạo ảnh hưởng tích cực đối với môi trường.</p>
+                                        <a href="#" class="btn btn-primary mt-3" role="button">Get Involved</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="container py-4 py-xl-5">
+                            <div class="row gy-4 gy-md-0">
+                                <div class="col-md-6">
+                                    <div class="p-xl-5 m-xl-5">
+                                        <img class="rounded img-fluid w-100 fit-cover" style="min-height: 300px;" src="~/Content/img/project.png" alt="Project Image">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 d-md-flex align-items-md-center">
+                                    <div style="max-width: 350px; font-family: 'Montserrat', sans-serif;">
+                                        <h2 class="text-uppercase fw-bold mb-4" style="color: #00695c; font-size: 1.2rem; ">CÙNG NHAU</h2>
+                                        <h2 class="text-uppercase fw-bold mt-4" style="color: #444;; font-size: 1.8rem;">KHIẾN TRÁI ĐẤT ĐẸP ĐẸP HƠN</h2>
+                                        <a href="#" class="btn btn-primary mt-3" role="button">Tham Gia Ngay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#slider" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#slider" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </section>
-        <section>
             <div class="container py-4 py-xl-5">
                 <div class="row mb-5">
                     <div class="col-md-8 col-xl-6 text-center mx-auto">
