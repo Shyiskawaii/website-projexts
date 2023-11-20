@@ -177,6 +177,8 @@
     <Content Include="Content\home.css" />
     <Content Include="Content\img\header.jpeg" />
     <Content Include="Content\img\default.jpeg" />
+    <Content Include="Content\img\PlantTree.jpg" />
+    <Content Include="Content\img\project.png" />
     <Content Include="Content\img\project1.jpeg" />
     <Content Include="Content\img\project2.jpeg" />
     <Content Include="Content\img\project3.jpg" />
