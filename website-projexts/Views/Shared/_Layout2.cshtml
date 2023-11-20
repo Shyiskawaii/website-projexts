@@ -48,16 +48,11 @@
             </div>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("CategoryList","Category")">Danh Mục</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("ProjectList","Project")">Tìm Kiếm</a></li>
-                    <li class="nav-item"><a class="nav-link" href="@Url.Action("ProjectCreate","Project")">Tạo Dự Án</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("ProjectControl","Home")">Dự Án</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("CategoryControl","Home")">Danh Mục</a></li>
+                    <li class="nav-item"><a class="nav-link" href="@Url.Action("UserControl","Home")">Người Dùng</a></li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    @if (Convert.ToString(Session["UserRoles"]) == "admin")
-                    {
-                        <a class="nav-link" href="@Url.Action("ProjectControl","Home")">Trang Admin</a>
-                    }
-                    <li class="nav-item"><a class="nav-link" href="#">Về Chúng Tôi</a></li>
                     <li class="nav-item d-flex">
                         @if (Session["UserID"] == null)
                         {
@@ -76,45 +71,6 @@
     <section>
         @RenderBody()
     </section>
-
-    <footer class="page-footer dark">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <h5>Bắt Đầu Với</h5>
-                    <ul>
-                        <li><a href="#">Trang Chủ</a></li>
-                        <li><a href="#">Đăng Ký</a></li>
-                        <li><a href="#">Đăng Nhập</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Về Chúng Tôi</h5>
-                    <ul>
-                        <li><a href="#">Thông Tin</a></li>
-                        <li><a href="#">Liên Hệ</a></li>
-                        <li><a href="#">Phản Hồi</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Khám Phá</h5>
-                    <ul>
-                        <li><a href="#">Danh Mục</a></li>
-                        <li><a href="#">Tìm Kiếm</a></li>
-                        <li><a href="#">Hỗ Trợ</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Điều Khoản</h5>
-                    <ul>
-                        <li><a href="#">Điều khoản dịch vụ</a></li>
-                        <li><a href="#">Điều Khoản Sử Dụng</a></li>
-                        <li><a href="#">Chính Sách Bảo Mật</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
 
 </body>
 </html>

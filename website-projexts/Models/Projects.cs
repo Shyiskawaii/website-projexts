@@ -35,7 +35,6 @@ namespace website_projexts.Models
         public string LongDescription { get; set; } 
         [Required(ErrorMessage ="Vui lòng nhập mục tiêu gây quỹ!")]
         [Range(100000,100000000,ErrorMessage = "Mục tiêu gây quỹ từ 100k-100tr!")]
-
         public int Goal{ get; set; } 
         public int Raised { get; set; }
         public DateTime PostedTime { get; set; }

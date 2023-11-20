@@ -47,8 +47,6 @@
             transition: transform .4s ease, opacity .4s ease;
             max-width: 100%;
             filter: none;
-            -webkit-filter: grayscale(0);
-            -webkit-transform: scale(1.01);
         }
 
         .single_post .img-post:hover img {
@@ -56,8 +54,6 @@
             -ms-transform: scale(1.02);
             transform: scale(1.02);
             opacity: .7;
-            filter: gray;
-            -webkit-filter: grayscale(1);
             -webkit-transition: all .8s ease-in-out;
         }
 

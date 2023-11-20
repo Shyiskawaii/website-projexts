@@ -6,52 +6,69 @@
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
 
-@foreach (var update in Model)
+@if (Model != null)
 {
-<section class="clean-block clean-form dark">
-    <div class="container">
-        @using (Html.BeginForm("UpdateEdit", "Update", new { projectID = update.ProjectID }, FormMethod.Post, new { style = "max-width: 700px;", enctype = "multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(model => update.ProjectID)
-            @Html.HiddenFor(model => update.UpdateId)
-            @Html.ValidationSummary(true, "Đã xảy ra lỗi, xin thử lại!")
-            <div class="form-group mb-3">
-                <label class="form-label">Tên Cập Nhật</label>
-                @Html.EditorFor(model => update.UpdateName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => update.UpdateName, "", new { @class = "text-danger" })
-            </div>
-            <div class="color form-group mb-3">
-                <label class="form-label" style="margin-top: 15px;">Hình ảnh</label>
-                <section>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12 col-xxl-12">
-                                <div class="file-upload-wrapper">
-                                    <div class="flex-wrap view file-upload" style="padding-bottom: 7px;padding-right: 4px;height: 302px;">
-                                        <img class="w-100 img-fluid" style="height: 230px;object-fit: cover;" src="@Url.Content(update.UpdateImage)" id="previewImg">
-                                        <input class="form-control file_upload" type="file" id="input-file-now" name="UploadImage"
-                                               onchange="ChangeImage(this, document.getElementById('previewImg'))">
+    foreach (var update in Model)
+    {
+        <section class="clean-block clean-form dark">
+            <div class="container">
+                @using (Html.BeginForm("UpdateEdit", "Update", new { projectID = update.ProjectID }, FormMethod.Post
+                    , new { style = "max-width: 700px;", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => update.ProjectID)
+                    @Html.HiddenFor(model => update.UpdateId)
+                    @Html.ValidationSummary(true, "Đã xảy ra lỗi, xin thử lại!")
+                    <div class="form-group mb-3">
+                        <label class="form-label">Tên Cập Nhật</label>
+                        @Html.EditorFor(model => update.UpdateName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => update.UpdateName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="color form-group mb-3">
+                        <label class="form-label" style="margin-top: 15px;">Hình ảnh</label>
+                        <section>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-xxl-12">
+                                        <div class="file-upload-wrapper">
+                                            <div class="flex-wrap view file-upload" style="padding-bottom: 7px;padding-right: 4px;height: 302px;">
+                                                <img class="w-100 img-fluid" style="height: 230px;object-fit: cover;" src="@Url.Content(update.UpdateImage)" id="previewImg">
+                                                <input class="form-control file_upload" type="file" id="input-file-now" name="UploadImage"
+                                                       onchange="ChangeImage(this, document.getElementById('previewImg'))">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
-                </section>
+                    <div class="form-group mb-3">
+                        <label class="form-label">Nội Dung Cập Nhật</label>
+                        @Html.TextAreaFor(model => update.UpdateText, new { @class = "form-control", @id = "summernote-1", @style = "height: 30rem;" })
+                        @Html.ValidationMessageFor(model => update.UpdateText, "", new { @class = "text-danger" })
+                    </div>
+                    <hr style="margin-top: 30px;margin-bottom: 10px;">
+                    <div class="form-group mb-3">
+                        <input class="btn btn-primary d-block w-100" id="submitButton" type="submit" value="Chính Sửa">
+                        <a class="btn btn-danger d-block w-100" role="button" href="@Url.Action("UpdateDelete","Update",new {updateID = update.UpdateId, projectID = update.ProjectID})" 
+                           onclick="return confirm('Bạn có chắc là bạn muốn xóa Cập Nhật này không?')" style="margin-top: 15px;">
+                            <i class="fa fa-trash"></i>&nbsp;Xóa Cập Nhật
+                        </a>
+                    </div>
+                }
             </div>
-            <div class="form-group mb-3">
-                <label class="form-label">Nội Dung Cập Nhật</label>
-                @Html.EditorFor(model => update.UpdateText, new { htmlAttributes = new { @class = "form-control", @id = "summernote-1", @style = "height: 30rem;" } })
-                @Html.ValidationMessageFor(model => update.UpdateText, "", new { @class = "text-danger" })
-            </div>
-            <hr style="margin-top: 30px;margin-bottom: 10px;">
-            <div class="form-group mb-3">
-                <input class="btn btn-primary d-block w-100" id="submitButton" type="submit" value="Cập Nhật">
-            </div>
-        }
-    </div>
-</section>
+        </section>
+    }
 }
+
+@if (TempData["ConfirmationMessage"] != null)
+{
+<script>
+    alert("@TempData["ConfirmationMessage"]");
+</script>
+}
+
+
 @*@using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()

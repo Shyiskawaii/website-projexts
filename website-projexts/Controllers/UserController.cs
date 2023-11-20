@@ -76,47 +76,44 @@ namespace website_projexts.Controllers
                     Session["Email"] = data.FirstOrDefault().Email;
                     Session["UserID"] = data.FirstOrDefault().UserID;
                     Session["UserRoles"] = data.FirstOrDefault().UserRoles;
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     ViewBag.error = "Login failed";
-                    return RedirectToAction("Login","User");
+                    return RedirectToAction("Login", "User");
                 }
             }
             return View();
         }
         public ActionResult UserPage(int? id)
         {
-            if (id == null)
+            if (id == null || !_db.User.Any(p => p.UserID == id))
             {
                 return RedirectToAction("Login", "User");
             }
-            else if (Session["UserID"] != null || Session["UserRoles"] == "admin")
+            else if (Convert.ToInt32(Session["UserID"]) == id || Convert.ToString(Session["UserRoles"]) == "admin")
             {
-                if (_db.Projects.Any(p => p.UserID == id))
+                var user = _db.User.SingleOrDefault(p => p.UserID == id);
+                int createdProjectsCount = _db.Projects.Count(p => p.UserID == id);
+                decimal totalFundsRaised = _db.Projects.Where(p => p.UserID == id).Sum(p => (decimal?)p.Raised) ?? 0;
+                int donationsCount = _db.Donation.Count(d => d.UserID == id);
+                decimal totalDonatedAmount = _db.Donation.Where(d => d.UserID == id).Sum(d => (decimal?)d.Donated) ?? 0;
+               
+                var viewModel = new UserEdit
                 {
-                    var user = _db.User.SingleOrDefault(p => p.UserID == id);
-                    int createdProjectsCount = _db.Projects.Count(p => p.UserID == id);
-                     decimal totalFundsRaised = _db.Projects.Where(p => p.UserID == id).Sum(p => (decimal?)p.Raised) ?? 0;
-                    int donationsCount = _db.Donation.Count(d => d.UserID == id);
-                    decimal totalDonatedAmount = _db.Donation.Where(d => d.UserID == id).Sum(d => (decimal?)d.Donated) ?? 0;
-
-                    var viewModel = new UserEdit
-                    {
-                        UserID = user.UserID,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                        UserName = user.UserName,
-                        Email = user.Email,
-                        UserImage = user.UserImage,
-                        CreatedProjectsCount = createdProjectsCount,
-                        TotalFundsRaised = totalFundsRaised,
-                        DonationsCount = donationsCount,
-                        TotalDonatedAmount = totalDonatedAmount
-                    };
-                    return View(viewModel);
-                }
+                    UserID = user.UserID,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    UserImage = user.UserImage,
+                    CreatedProjectsCount = createdProjectsCount,
+                    TotalFundsRaised = totalFundsRaised,
+                    DonationsCount = donationsCount,
+                    TotalDonatedAmount = totalDonatedAmount
+                };
+                return View(viewModel);
             }
             return RedirectToAction("Login", "User");
             
@@ -159,6 +156,25 @@ namespace website_projexts.Controllers
                 return PartialView(userProject);
             }
             return PartialView(null);
+        }
+
+        public ActionResult UserDelete(int id)
+        {
+            if (_db.User.Any(p => p.UserID == id))
+            {
+                var user = _db.User.SingleOrDefault(p => p.UserID == id);
+                if (Convert.ToString(Session["UserRoles"]) == "admin")
+                {
+                    if (Request.UrlReferrer != null)
+                    {
+                        TempData["ConfirmationMessage"] = "Bạn Đã Xóa Thành Công Người Dùng!";
+                    }
+                    _db.User.Remove(user);
+                    _db.SaveChanges();
+                    return RedirectToAction("UserControl", "Home");
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Logout()

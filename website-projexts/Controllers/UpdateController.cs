@@ -72,7 +72,7 @@ namespace website_projexts.Controllers
                     return PartialView(updates);
                 }
             }
-            return PartialView("Index","Home");
+            return PartialView(null);
         }
         [HttpPost]
         public ActionResult UpdateEdit(int? projectID, Update update)
@@ -97,7 +97,21 @@ namespace website_projexts.Controllers
                 _db.Configuration.ValidateOnSaveEnabled = false;
                 _db.SaveChanges();
             }
-            return RedirectToAction("ProjectEdit", "Project", new {projectID = projectID});
+            return RedirectToAction("ProjectEdit", "Project", new { id = projectID });
         }
+
+        public ActionResult UpdateDelete(int updateID,int projectID)
+        {
+            if (Request.UrlReferrer != null)
+            {
+                TempData["ConfirmationMessage"] = "Bạn Đã Xóa Thành Công Cập Nhật";
+            }
+            var update = _db.Update.Find(updateID);
+            _db.Update.Remove(update);
+            _db.SaveChanges();
+
+            return RedirectToAction("ProjectEdit","Project", new{ id = projectID }); 
+        }
+
     }
 }

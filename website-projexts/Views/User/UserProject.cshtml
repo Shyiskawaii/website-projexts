@@ -6,7 +6,7 @@
 @Styles.Render("~/Content/css")
 
 
-<div class="container-fluid" style="margin-bottom: 50px;">
+<div class="container-fluid">
     <div class="row">
         <div class="col-12 col-sm-6 col-md-6">
             <h3 class="text-white mb-4">Dashboard</h3>
@@ -55,7 +55,8 @@
                                             <a class="btn semicircle" role="button" href="@Url.Action("ProjectEdit", "Project", new { id = item.ProjectID })" style="color: rgb(0,197,179);">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a class="btn checkboxHover" role="button" style="margin-left: 5px;" href="@Url.Action("ProjectDelete", "Project", new { id = item.ProjectID })">
+                                            <a class="btn checkboxHover" role="button" style="margin-left: 5px;" href="@Url.Action("ProjectDelete", "Project", new { id = item.ProjectID })"
+                                               onclick="return confirm('Bạn có chắc là bạn muốn xóa Dự Án này không?')">
                                                 <i class="fa fa-trash " style="color: #DC3545;"></i>
                                             </a>
                                         </td>
@@ -64,13 +65,12 @@
                             }
                             else
                             {
-                                <tr>    
+                                <tr>
                                     <td>
                                         <p>Không Có Dự Án Nào</p>
                                     </td>
                                 </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>
@@ -78,3 +78,9 @@
         </div>
     </div>
 </div>
+@if (TempData["ConfirmationMessage"] != null)
+{
+    <script>
+     alert(TempData["ConfirmationMessage"]);
+    </script>
+}

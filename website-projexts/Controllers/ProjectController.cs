@@ -13,6 +13,7 @@ using PagedList;
 using PagedList.Mvc;
 using System.IO;
 using Microsoft.Ajax.Utilities;
+using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace website_projexts.Controllers
 {
@@ -26,15 +27,6 @@ namespace website_projexts.Controllers
         //    return View(_db.Projects.ToList());
         //}
 
-        public ActionResult AdminControler(string search)
-        {
-            if (search != null)
-            {
-                var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.ProjectName.Contains(search));
-                return View(projectList.ToList());
-            }
-            return View(_db.Projects.ToList());
-        }
         public PartialViewResult ProjectPartial()
         {
             var topProjects = _db.Projects.OrderByDescending(p => p.Raised).Take(3).ToList();
@@ -67,7 +59,7 @@ namespace website_projexts.Controllers
             if(Session["UserID"] != null)
             {
                 var categories = _db.Category.ToList();
-                ViewBag.Categories = new SelectList(categories, "CategoryID", "Name");
+                ViewBag.Categories = new SelectList(categories, "CategoryID", "CategoryName");
                 var model = new Projects();
                 model.ProjectImage = "~/Content/img/default.jpeg";
                 return View(model);
@@ -95,8 +87,7 @@ namespace website_projexts.Controllers
                         project.ProjectImage = "~/Content/img/" + filename;
                         project.UploadImage.SaveAs(Path.Combine(Server.MapPath("~/Content/img/"), filename));
                     }
-                    //project.UserID = Convert.ToInt32(Session["idUser"]);
-                    project.UserID = 1;
+                    project.UserID = Convert.ToInt32(Session["UserID"]);
                     project.Raised = 0;
                     project.PostedTime = DateTime.Now;
 
@@ -119,7 +110,7 @@ namespace website_projexts.Controllers
                 return RedirectToAction("Login", "User");
 
             }
-            else if (Session["UserID"] != null || Session["UserRoles"] == "admin")
+            else if (Session["UserID"] != null || Convert.ToString(Session["UserRoles"]) == "admin")
             {
                 if (_db.Projects.Any(p => p.ProjectID == id))
                 {
@@ -127,7 +118,7 @@ namespace website_projexts.Controllers
                     if (project.UserID != Convert.ToInt32(Session["UserID"]))
                         return Content("");
                     var categories = _db.Category.ToList();
-                    ViewBag.Categories = new SelectList(categories, "CategoryID", "Name");
+                    ViewBag.Categories = new SelectList(categories, "CategoryID", "CategoryName");
                     ViewBag.ProjectID = id;
                     return View(project);
                 }
@@ -166,25 +157,23 @@ namespace website_projexts.Controllers
                 return RedirectToAction("Login", "User");
 
             }
-            else if (Session["UserID"] != null || Session["UserRoles"] == "admin")
+            else if (_db.Projects.Any(p => p.ProjectID == id))
             {
-                if (_db.Projects.Any(p => p.ProjectID == id))
+                var project = _db.Projects.SingleOrDefault(p => p.ProjectID == id);
+                if (project.UserID == Convert.ToInt32(Session["UserID"]) || Convert.ToString(Session["UserRoles"]) == "admin")
                 {
-                    var project = _db.Projects.SingleOrDefault(p => p.ProjectID == id);
-                    if (project.UserID != Convert.ToInt32(Session["UserID"]) || Session["UserRoles"] != "admin")
-                        return Content("");
-                    return View(project);
+                    if (Request.UrlReferrer != null)
+                    {
+                        TempData["ConfirmationMessage"] = "Bạn Đã Xóa Thành Công Dự Án!";
+                    }
+                    _db.Projects.Remove(project);
+                    _db.SaveChanges();
+                    return RedirectToAction("UserPage","User",new {id = Session["UserID"]});
                 }
             }
-            return RedirectToAction("Login", "User");
+            return RedirectToAction("Index", "Home");
         }
-        public ActionResult ProjectConfirmDelete(int projectID)
-        {
-            Projects product = _db.Projects.Where(s => s.ProjectID == projectID).FirstOrDefault();
-            _db.Projects.Remove(product);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+       
         //var errors = ModelState
         //     .Where(x => x.Value.Errors.Count > 0)
         //     .Select(x => new { x.Key, x.Value.Errors })
@@ -195,7 +184,7 @@ namespace website_projexts.Controllers
         {
             if (id == null)
             {
-                return RedirectToAction("Login", "User");
+                return RedirectToAction("ProjectList", "Project");
             }
             
             if (_db.Projects.Any(p => p.ProjectID == id))

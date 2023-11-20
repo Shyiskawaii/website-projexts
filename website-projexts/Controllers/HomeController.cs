@@ -37,7 +37,35 @@ namespace website_projexts.Controllers
         {
             return View();
         }
-        
-       
+        public ActionResult ProjectControl(string search)
+        {
+            if (Convert.ToString(Session["UserRoles"]) == "admin")
+            {
+                if (search != null)
+                {
+                    var projectList = _db.Projects.OrderByDescending(x => x.ProjectName).Where(p => p.ProjectName.Contains(search));
+                    return View(projectList.ToList());
+                }
+                return View(_db.Projects.ToList());
+            }
+            return RedirectToAction("Index");
+        }
+        public ActionResult CategoryControl()
+        {
+            if (Convert.ToString(Session["UserRoles"]) == "admin")
+            {
+                return View(_db.Category.ToList());
+            }
+            return RedirectToAction("Index");
+        }
+        public ActionResult UserControl()
+        {
+            if (Convert.ToString(Session["UserRoles"]) == "admin")
+            {
+                return View(_db.User.ToList());
+            }
+            return RedirectToAction("Index");
+        }
+
     }
 }

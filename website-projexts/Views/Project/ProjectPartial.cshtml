@@ -14,7 +14,7 @@
                  src="@Url.Content(pro.ProjectImage)">
             <div class="card-body p-4">
                 <p class="text-primary card-text mb-0" style="text-decoration: none; color: #4AB67E ">
-                    @Html.DisplayFor(modelItem => pro.Category.Name)
+                    @Html.DisplayFor(modelItem => pro.Category.CategoryName)
                 </p>
                 <a class="stretched-link" style="text-decoration: none; color: #4AB67E "href="@Url.Action("ProjectDetail", "Project", new { id = pro.ProjectID})">
                     <h4>

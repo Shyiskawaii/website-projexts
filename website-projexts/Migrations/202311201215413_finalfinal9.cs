@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class finalfinal5 : DbMigration
+    public partial class finalfinal9 : DbMigration
     {
         public override void Up()
         {
@@ -12,7 +12,9 @@
                 c => new
                     {
                         CategoryID = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
+                        CategoryName = c.String(nullable: false),
+                        CategoryDescription = c.String(nullable: false),
+                        CategoryImage = c.String(),
                     })
                 .PrimaryKey(t => t.CategoryID);
             
@@ -49,8 +51,8 @@
                         DonationTime = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.DonationID)
-                .ForeignKey("dbo.Projects", t => t.ProjectID, cascadeDelete: false)
-                .ForeignKey("dbo.Users", t => t.UserID, cascadeDelete: false)
+                .ForeignKey("dbo.Projects", t => t.ProjectID, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.UserID)
                 .Index(t => t.ProjectID)
                 .Index(t => t.UserID);
             
@@ -89,8 +91,8 @@
         public override void Down()
         {
             DropForeignKey("dbo.Updates", "ProjectID", "dbo.Projects");
-            DropForeignKey("dbo.Projects", "UserID", "dbo.Users");
             DropForeignKey("dbo.Donations", "UserID", "dbo.Users");
+            DropForeignKey("dbo.Projects", "UserID", "dbo.Users");
             DropForeignKey("dbo.Donations", "ProjectID", "dbo.Projects");
             DropForeignKey("dbo.Projects", "CategoryID", "dbo.Categories");
             DropIndex("dbo.Updates", new[] { "ProjectID" });

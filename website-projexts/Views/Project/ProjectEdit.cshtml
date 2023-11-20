@@ -73,20 +73,20 @@
 
                 <div class="form-group mb-3">
                     <label class="form-label">Tóm Tắt Về Dự Án</label>
-                    @Html.EditorFor(model => model.ShortDescription, new { htmlAttributes = new { @class = "form-control", @id = "summernote", style = "height: 7rem;" } })
+
+                    @Html.TextAreaFor(model => model.ShortDescription, new { @class = "form-control", @id = "summernote", style = "height: 7rem;text-align: start" })
                     @Html.ValidationMessageFor(model => model.ShortDescription, "", new { @class = "text-danger" })
                 </div>
 
                 <div class="form-group mb-3">
                     <label class="form-label">Thông Tin về Dự Án</label>
-                    @Html.EditorFor(model => model.LongDescription, new { htmlAttributes = new { @class = "form-control", @id = "summernote-1", style = "height: 30rem;" } })
+                    @Html.TextAreaFor(model => model.LongDescription, new { @class = "form-control textarea", @id = "summernote-1", style = "height: 30rem;text-align: start" })
                     @Html.ValidationMessageFor(model => model.LongDescription, "", new { @class = "text-danger" })
                 </div>
 
                 <hr style="margin-top: 30px;margin-bottom: 10px;">
                 <div class="form-group mb-3">
-                    <button class="btn btn-primary d-block w-100" id="submitButton" type="submit" value="Create"><i class="fa fa-save"></i>&nbsp;Tạo Mới</button>
-                    <a class="btn btn-danger d-block w-100" role="button" href="@Url.Action("ProjectList")" style="margin-top: 15px;"><i class="fa fa-arrow-left"></i>&nbsp;Hủy Bỏ</a>
+                    <button class="btn btn-primary d-block w-100" id="submitButton" type="submit" value="Create"><i class="fa fa-save"></i>&nbsp;Chỉnh Sửa</button>
                 </div>
                
             }

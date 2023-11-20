@@ -143,9 +143,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202311140530388_finalfinal5.cs" />
-    <Compile Include="Migrations\202311140530388_finalfinal5.designer.cs">
-      <DependentUpon>202311140530388_finalfinal5.cs</DependentUpon>
+    <Compile Include="Migrations\202311201215413_finalfinal9.cs" />
+    <Compile Include="Migrations\202311201215413_finalfinal9.designer.cs">
+      <DependentUpon>202311201215413_finalfinal9.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -173,6 +173,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\catelist.css" />
     <Content Include="Content\home.css" />
     <Content Include="Content\img\header.jpeg" />
     <Content Include="Content\img\default.jpeg" />
@@ -252,13 +253,19 @@
     <Content Include="Views\User\UserPage.cshtml" />
     <Content Include="Views\Project\ProjectEdit.cshtml" />
     <Content Include="Views\Project\ProjectDelete.cshtml" />
-    <Content Include="Views\Project\AdminControler.cshtml" />
     <Content Include="Views\User\UserProject.cshtml" />
     <Content Include="Views\Donation\DonationCreate.cshtml" />
     <Content Include="Views\Donation\DonationPartial.cshtml" />
     <Content Include="Views\Project\ProjectPartial.cshtml" />
     <Content Include="Views\Home\UserStuff.cshtml" />
     <Content Include="Views\Update\UpdateEdit.cshtml" />
+    <Content Include="Views\Category\CategoryCreate.cshtml" />
+    <Content Include="Views\Category\CategoryList.cshtml" />
+    <Content Include="Views\Home\ProjectControl.cshtml" />
+    <Content Include="Views\Home\CategoryControl.cshtml" />
+    <Content Include="Views\Home\UserControl.cshtml" />
+    <Content Include="Views\Category\CategoryEdit.cshtml" />
+    <Content Include="Views\Shared\_Layout2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -269,8 +276,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202311140530388_finalfinal5.resx">
-      <DependentUpon>202311140530388_finalfinal5.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202311201215413_finalfinal9.resx">
+      <DependentUpon>202311201215413_finalfinal9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

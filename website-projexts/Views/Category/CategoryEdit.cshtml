@@ -1,0 +1,72 @@
+﻿@model website_projexts.Models.Category
+
+<link href="~/Content/procreate.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+@{
+    ViewBag.Title = "CategoryEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CategoryEdit</title>
+</head>
+<body>
+    <section class="clean-block clean-form dark align-self-center">
+        <div class="container">
+            <div class="block-heading" style="padding-top: 0px;">
+                <h2 class="text-primary">Chỉnh Sửa Danh Mục</h2>
+                <p></p>
+            </div>
+            @using (Html.BeginForm("CategoryEdit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "Đã xảy ra lỗi, xin thử lại!")
+
+        <div class="form-group mb-3">
+            <label class="form-label">Tên Danh Mục</label>
+            @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control", @required = "required", @autocomplete = "off" } })
+            @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+        </div>
+
+                <div class="form-group mb-3">
+                    <label class="form-label">Nội Dung Danh Mục</label>
+                    @Html.TextAreaFor(model => model.CategoryDescription, new{ @class = "form-control", @id = "summernote", style = "height: 7rem;" } )
+                    @Html.ValidationMessageFor(model => model.CategoryDescription, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="color form-group mb-3">
+                    <label class="form-label" style="margin-top: 15px;">Hình ảnh</label>
+                    <section>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="file-upload-wrapper">
+                                        <div class="flex-wrap view file-upload" style="padding-bottom: 7px; padding-right: 4px; height: 302px;">
+                                            <img class="w-100 img-fluid" style="height: 230px;object-fit: cover;"
+                                                 src="@Url.Content(Model.CategoryImage)" id="previewImg" />
+                                            <input class="form-control file_upload" type="file" name="UploadImage" id="input-file-now"
+                                                   onchange="ChangeImage(this, document.getElementById('previewImg'))">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <hr style="margin-top: 30px;margin-bottom: 10px;">
+                <div class="form-group mb-3">
+                    <button class="btn btn-primary d-block w-100" id="submitButton" type="submit" value="Create"><i class="fa fa-save"></i>&nbsp;Tạo Mới</button>
+                    <a class="btn btn-danger d-block w-100" role="button" href="@Url.Action("UpdateList","Update")" style="margin-top: 15px;"><i class="fa fa-arrow-left"></i>&nbsp;Hủy Bỏ</a>
+                </div>
+            }
+        </div>
+    </section>
+</body>
+</html>

@@ -14,8 +14,16 @@ namespace website_projexts.Models
         public int CategoryID { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string CategoryName { get; set; }
+        [Required]
+        public string CategoryDescription { get; set; }
 
         public ICollection<Projects> Projects { get; set; }
+
+        public string CategoryImage { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase UploadImage { get; set; }
+
     }
 }
